@@ -18,19 +18,19 @@ body {
 }
 
 h1 {
-    color: #007acc; /* Match the color of the home page header */
+    color: #007acc; 
 }
 
 .form-group {
     margin-bottom: 20px;
-    text-align: left; /* Align form elements to the left */
+    text-align: left;
 }
 
 label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
-    color: #333; /* Match the color of the home page text */
+    color: #333; 
 }
 
 input[type="text"],
@@ -42,7 +42,7 @@ input[type="password"] {
 }
 
 button {
-    background-color: #007acc; /* Match the color of the home page header */
+    background-color: #007acc; 
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -52,5 +52,5 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3; /* Slightly darker on hover */
+    background-color: #0056b3; 
 }
