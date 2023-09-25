@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   sodipodi:docname="vip.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.53362093"
+     inkscape:cx="396.34877"
+     inkscape:cy="561.25984"
+     inkscape:window-width="1440"
+     inkscape:window-height="837"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="图层 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       sodipodi:type="star"
+       style="fill:#1a1a1a;stroke:#000000;stroke-width:0.264583"
+       id="path1"
+       inkscape:flatsided="false"
+       sodipodi:sides="5"
+       sodipodi:cx="90.240395"
+       sodipodi:cy="59.994987"
+       sodipodi:r1="23.508654"
+       sodipodi:r2="11.754327"
+       sodipodi:arg1="1.088283"
+       sodipodi:arg2="1.7166016"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 101.14857,80.819694 -12.615952,-9.195102 -14.726883,5.17988 4.846517,-14.839931 -9.477216,-12.405427 15.611269,0.02352 8.869642,-12.846855 4.801778,14.854467 14.958955,4.465634 -12.64361,9.157045 z"
+       inkscape:transform-center-x="-1.7994454"
+       inkscape:transform-center-y="-1.976593"
+       transform="matrix(1.7048887,0,0,1.6238127,-51.880704,-24.787535)" />
+    <path
+       sodipodi:type="star"
+       style="fill:#1a1a1a;stroke:#000000;stroke-width:0.264583"
+       id="path2"
+       inkscape:flatsided="false"
+       sodipodi:sides="5"
+       sodipodi:cx="129.90651"
+       sodipodi:cy="75.365608"
+       sodipodi:r1="13.533427"
+       sodipodi:r2="6.7667131"
+       sodipodi:arg1="1.0743736"
+       sodipodi:arg2="1.7026921"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 136.35225,87.265442 -7.33566,-5.191894 -8.43565,3.099577 2.67094,-8.581009 -5.55463,-7.064963 8.98639,-0.111461 5.0027,-7.465964 2.88295,8.512122 8.64648,2.450743 -7.20463,5.372242 z"
+       inkscape:transform-center-x="-0.75365451"
+       inkscape:transform-center-y="-1.0867937"
+       transform="matrix(1.370292,0,0,1.4337188,-13.175797,-9.3519295)" />
+    <path
+       sodipodi:type="star"
+       style="fill:#1a1a1a;stroke:#000000;stroke-width:0.264583"
+       id="path3"
+       inkscape:flatsided="false"
+       sodipodi:sides="5"
+       sodipodi:cx="37.186977"
+       sodipodi:cy="84.786316"
+       sodipodi:r1="14.378965"
+       sodipodi:r2="7.1894822"
+       sodipodi:arg1="0.80978357"
+       sodipodi:arg2="1.4381021"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 47.103505,95.19867 -8.965322,-3.286074 -7.789567,5.522493 0.354805,-9.541981 -7.659311,-5.701775 9.184604,-2.611194 3.055852,-9.046383 5.321592,7.928174 9.547932,0.110802 -5.895679,7.511075 z"
+       inkscape:transform-center-x="0.80556464"
+       inkscape:transform-center-y="-1.1496924"
+       transform="matrix(1.370292,0,0,1.4337188,-19.29064,-25.702069)" />
+    <text
+       xml:space="preserve"
+       style="font-size:124.682px;fill:#1a1a1a;stroke:#000000;stroke-width:10.3902"
+       x="9.009676"
+       y="226.91121"
+       id="text3"
+       transform="scale(1.0724491,0.93244519)"><tspan
+         sodipodi:role="line"
+         id="tspan3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Bahnschrift;-inkscape-font-specification:Bahnschrift;stroke-width:10.3902"
+         x="9.009676"
+         y="226.91121">VIP</tspan></text>
+  </g>
+</svg>
