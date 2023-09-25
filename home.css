@@ -6,7 +6,7 @@ body {
 }
 
 .websitename {
-    background-color: #007acc;
+    background-color: #1D201F;
     color: #ffffff;
     text-align: center;
     padding: 20px;
@@ -18,7 +18,7 @@ body {
 }
 
 nav {
-    background-color: #333;
+    background-color: #78C0E0;
     color: #ffffff;
 }
 
@@ -43,5 +43,5 @@ nav {
 }
 
 .nav-li a:hover {
-    background-color: #007acc;
+    background-color: #1D201F;
 }
