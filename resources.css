@@ -1,0 +1,44 @@
+body{
+    grid-template-areas: "filter filter fitler"
+                        " card map map";
+    height: 100vh;
+    color: white;
+}
+
+.filters{
+    grid-area: filter;
+    background-color: #1d201f;
+    height: 20vh;
+    width: 100vw;
+    margin-top: -3vh;
+    padding-left: 5vw;
+}
+
+#type, #distance{
+    border: 1px solid #78c0e0;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+    font-size: medium;
+    background-color: #1d201f;
+    color: white;
+}
+
+.formControl{
+    margin: 20px;
+}
+
+.cards{
+    grid-area: card;
+    background-color: blue;
+    height: 80vh;
+    width: 20vw;
+}
+
+#map{
+    grid-area: map;
+    height: 80vh;
+    width: 80vw;
+    float: right;
+    margin-top: -80vh;
+}
