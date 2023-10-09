@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Alerts</title>
+    <link rel="stylesheet" href="css/navBar.css">
+    <link rel="stylesheet" href="css/emergencyAlerts.css">
+    <script src="js/emergencyAlerts.js">
+    </script>
+    <!--nav bar-->
+        
+</head>
+<body>
+
+    <!--Current alerts-->
+    <div class="alertBox"><button id="alerts" type='button'>Current Alerts</button>
+    <p id="effective"></p>
+    <p id="category"></p>
+    <p id="severity"></p>
+    <p id="certainty"></p>
+    <p id="urgency"></p>
+    <p id="event"></p>
+    <p id="headline"></p>
+    <p id="description"></p>
+    <p id="instruction"></p>
+    <p id="response"></p>
+    </div>
+    <!--Opt in to alerts using .edu email-->
+    <div class="optIn"><h2>Enter your email to get alert notifications: </h2>
+        <form action="optIn.php" method="POST">
+            <div class="emailOptIn">
+                <label for="email">Email: </label>
+                <input type="email" id="email" name="email" required>
+                <button type="submit">Get notifications</button>
+            </div>
+    </div>
+    <!--Alerts color-coded based on severity and type?-->
+    
+</body>
+</html>

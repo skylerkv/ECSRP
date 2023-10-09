@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="resources.css">
+    <link rel="stylesheet" type="text/css" href="home.css">
+</head>
+<body>
+    <nav>
+        <ul class="nav-ul">
+            <li class="nav-li"><a href="login.html">Login</a></li>
+            <li class="nav-li"><a href="homepage.html">Home</a></li>
+            <li class="nav-li"><a href="emergencyAlerts.html">Alerts</a></li>
+            <li class="nav-li"><a href="volunteer.html">Volunteer</a></li>
+            <li class="nav-li"><a href="resources.html">Resources</a></li>
+            <li class="nav-li"><a href="./Forum/index.html">Forums</a></li>
+            <li class="nav-li"><a href="plansscheck.html">Lists</a></li>
+            <li class="nav-li"><a href="healthmonitor.html">Health</a></li>
+        </ul>
+    </nav>
+    <div id="container">
+        <div class="filters">
+            <!-- add more filters based on white first filters were chosen -->
+            <h4>Shelters, food banks, medical facilities, and volunteer organizations around you!</h4>
+            <div class="formControl">
+                <label for="type">Type:</label>
+                <select id="type" name="type">
+                    <option disabled selected="Select">Select an option</option>
+                    <option value="Shelters">Shelters</option>
+                    <option value="FoodBanks">Food Banks</option>
+                    <option value="MedicalFacilities">Medical Facilities</option>
+                    <option value="VolunteerGroups">Volunteer Groups</option>
+                </select>
+            </div>
+            <div class="formControl">
+                <label for="type">Distance:</label>
+                <select id="distance" name="distance">
+                    <option disabled selected="Select">Select an option</option>
+                    <option value="5mi">5 miles</option>
+                    <option value="10mi">10 miles</option>
+                    <option value="15mi">15 miles</option>
+                    <option value="20plusmi">20+ miles</option>
+                </select>
+            </div>
+            <button class="searchButton">Search</button>
+        </div>
+        <div id="cards">
+            <p>cards here</p>
+            <!-- <script src="resources.js"></script> -->
+        </div>
+        <div id="map"></div>
+        <script>
+            function initMap() {
+                var location = {lat: 44.8113, lng: -91.4985};
+                var map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 14,
+                    center: location
+                });
+                var marker = new google.maps.Marker({
+                    position: location,
+                    map: map
+                })
+            }
+        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBm1YCZp02ziRE_v7HXVxa2CHxjvKYLNI8&callback=initMap"></script>
+    </div>
+</body>
+</html>
+
