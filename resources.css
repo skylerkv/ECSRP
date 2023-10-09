@@ -28,11 +28,12 @@ body{
     margin: 20px;
 }
 
-.cards{
+#cards{
     grid-area: card;
     background-color: blue;
     height: 80vh;
     width: 30vw;
+    margin-top: -2vh;
 }
 
 #map{
