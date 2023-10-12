@@ -4,7 +4,6 @@ body{
     height: 100vh;
     color: white;
 }
-
 .filters{
     grid-area: filter;
     background-color: #1d201f;
@@ -13,7 +12,6 @@ body{
     margin-top: -3vh;
     padding-left: 5vw;
 }
-
 #type, #distance{
     border: 1px solid #78c0e0;
     cursor: pointer;
@@ -23,18 +21,17 @@ body{
     background-color: #1d201f;
     color: white;
 }
-
 .formControl{
-    margin: 20px;
+    margin-top: 3vh;
+    padding-top: 3vh;
 }
-
-.cards{
+#cards{
     grid-area: card;
-    background-color: blue;
+    /* background-color: blue; */
     height: 80vh;
     width: 30vw;
+    margin-top: -2vh;
 }
-
 #map{
     grid-area: map;
     height: 80vh;

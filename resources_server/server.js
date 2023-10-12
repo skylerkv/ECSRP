@@ -1,9 +1,13 @@
 import express from 'express';
 import fetch from 'node-fetch';
+import cors from 'cors';
+
 const app = express();
 const port = 3001;
 
-app.get('/api/data', async (req, res) => {
+app.use(cors());
+
+app.get('/api/shelterData', async (req, res) => {
     const url = 'https://homeless-shelter.p.rapidapi.com/location?lat=44.8113&lng=-91.4985&radius=5';
     const options = {
         method: 'GET',
