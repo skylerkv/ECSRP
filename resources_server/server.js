@@ -43,7 +43,8 @@ app.get('/api/hospitalData', async (req, res) => {
     try {
 	    const response = await fetch(url, options);
 	    const result = await response.text();
-	    console.log(result); //maybe change to res.send(result) like above?
+	    //console.log(result); //maybe change to res.send(result) like above?
+        res.send(result);
     } catch (error) {
 	    console.error(error);
         res.status(500).send('Error fetching data');
