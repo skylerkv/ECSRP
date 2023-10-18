@@ -45,3 +45,29 @@ nav {
 .nav-li a:hover {
     background-color: #1D201F;
 }
+.features-section {
+    padding: 20px;
+    text-align: center;
+}
+
+.features-section h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+.feature {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.feature h3 a {
+    color: #007BFF; 
+    text-decoration: none;
+}
+
+.feature h3 a:hover {
+    text-decoration: underline; 
+}
