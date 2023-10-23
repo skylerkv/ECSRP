@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="resources.css">
     <link rel="stylesheet" type="text/css" href="home.css">
+    <link rel="stylesheet" type="text/css" href="card.css">
 </head>
 <body>
     <nav>
@@ -23,8 +24,8 @@
     </nav>
     <div id="container">
         <div class="filters">
-            <!-- add more filters based on white first filters were chosen -->
-            <h4>Shelters, food banks, medical facilities, and volunteer organizations around you!</h4>
+            <!-- add more filters based on which first filters were chosen -->
+            <!-- <h4>Shelters, food banks, medical facilities, and volunteer organizations around you!</h4> -->
             <div class="formControl">
                 <label for="type">Type:</label>
                 <select id="type" name="type">
@@ -48,9 +49,18 @@
             <button class="searchButton">Search</button>
         </div>
         <div id="cards">
+
+            <!-- <p>cards here</p>
+            <script src="resources.js"></script> -->
+            <div id="shelter-cards"> shelter</div>
+            <div id="hospital-cards">hospital</div>
+            <script src="resources.js"></script>
+
             <p>cards here</p>
             <!-- <script src="resources.js"></script> -->
+
         </div>
+
         <div id="map"></div>
         <script>
             function initMap() {
@@ -69,4 +79,3 @@
     </div>
 </body>
 </html>
-

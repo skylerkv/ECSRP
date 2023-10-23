@@ -25,16 +25,24 @@ body{
 }
 
 .formControl{
-    margin: 20px;
+    margin-top: 3vh;
+    padding-top: 3vh;
 }
 
 #cards{
+    grid-area: card;
+    height: 80vh;
+    width: 30vw;
+    margin-top: -2vh;
+}
+
+/* .cards-container{
     grid-area: card;
     background-color: blue;
     height: 80vh;
     width: 30vw;
     margin-top: -2vh;
-}
+} */
 
 #map{
     grid-area: map;
