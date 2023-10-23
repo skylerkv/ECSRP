@@ -14,6 +14,8 @@ document.addEventListener("click", function (eventClick) {
     });
 });
 
+const xmlhttp = new XMLHttpRequest();
+
 function weatherAlerts(data) {
     const effectiveElement = document.getElementById("effective");
     const categoryElement = document.getElementById("category");

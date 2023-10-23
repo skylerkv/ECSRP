@@ -11,6 +11,10 @@ body {
 
 .login-container {
     background-color: #fff;
+<<<<<<< HEAD
+=======
+    width: 25%;
+>>>>>>> 4d6dbd858e40281c2356726af7ab65d5d8d65a38
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     padding: 20px;
@@ -18,31 +22,49 @@ body {
 }
 
 h1 {
+<<<<<<< HEAD
+    color: #333;
+=======
     color: #007acc; 
+>>>>>>> 4d6dbd858e40281c2356726af7ab65d5d8d65a38
 }
 
 .form-group {
     margin-bottom: 20px;
+<<<<<<< HEAD
+=======
     text-align: left;
+>>>>>>> 4d6dbd858e40281c2356726af7ab65d5d8d65a38
 }
 
 label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
+<<<<<<< HEAD
+=======
     color: #333; 
+>>>>>>> 4d6dbd858e40281c2356726af7ab65d5d8d65a38
 }
 
 input[type="text"],
 input[type="password"] {
+<<<<<<< HEAD
     width: 100%;
+=======
+    width: 90%;
+>>>>>>> 4d6dbd858e40281c2356726af7ab65d5d8d65a38
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
 }
 
 button {
+<<<<<<< HEAD
+    background-color: #007BFF;
+=======
     background-color: #007acc; 
+>>>>>>> 4d6dbd858e40281c2356726af7ab65d5d8d65a38
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -52,5 +74,10 @@ button {
 }
 
 button:hover {
+<<<<<<< HEAD
+    background-color: #0056b3;
+}
+=======
     background-color: #0056b3; 
 }
+>>>>>>> 4d6dbd858e40281c2356726af7ab65d5d8d65a38
