@@ -14,10 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
   
           // Create the content for the card
           const cardContent = `
+            <img ${shelter.photo_urls}>
             <h2>${shelter.name}</h2>
             <p>Address: ${shelter.address}, ${shelter.city}, ${shelter.state} ${shelter.zip_code}</p>
             <p>Phone: ${shelter.phone_number}</p>
-            <!-- Add more information as needed -->
+            <p>Website: <a href="${shelter.official_website}" target="_blank">${shelter.official_website}</a></p>
+            <!-- add socials and email with icons -->
           `;
   
           // Set the card's innerHTML to the content
@@ -48,7 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <h2>${hospital["Hospital Name"]}</h2>
             <p>Address: ${hospital["Street Address"]}, ${hospital.city}, ${hospital.state} ${hospital.zip_code}</p>
             <p>Phone: ${hospital.phone}</p>
-            <!-- Add more information as needed -->
+            <p>Website: <a href="${hospital.Url}" target="_blank">${hospital.Url}</a></p>
+            <!-- add socials and email with icons -->
           `;
   
           // Set the card's innerHTML to the content
