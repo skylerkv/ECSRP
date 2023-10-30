@@ -12,21 +12,21 @@ body{
     padding: 10px;
     font-family: 'Times New Roman', Times, serif;
 }
-.submitButton{
+.emailSubmitButton{
     background-color: #1D201F;
     color: white;
     border: none;
 }
-.submitButton:hover{
+.emailSubmitButton:hover{
     background-color: white;
     color: black;
 }
-#alerts{
+#weatherAlerts{
     background-color: black;
     color: white;
     border: none;
 }
-#alerts:hover{
+#weatherAlerts:hover{
     background-color: white;
     color: black;
 }
@@ -41,6 +41,15 @@ body{
 .emailOptIn{
     text-align: center;
     border: none;
+}
+.alertsSubmitButton{
+    background-color: white;
+    color: #1D201F;
+    border: none;
+}
+.alertsSubmitButton:hover{
+    background-color: #1D201F;
+    color: white;
 }
 nav {
     background-color: #78C0E0;

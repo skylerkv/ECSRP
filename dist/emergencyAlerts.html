@@ -7,9 +7,8 @@
     <title>Emergency Alerts</title>
     <link rel="stylesheet" href="css/navBar.css">
     <link rel="stylesheet" href="css/emergencyAlerts.css">
-    <script src="js/emergencyAlerts.js">
-    </script>
-        
+    <script src="server.js"></script> 
+
 </head>
 <body>
     <nav>
@@ -25,29 +24,94 @@
     </nav>
 
     <!--Current alerts-->
-    <div class="alertBox"><button id="alerts" type='button'>Current Alerts</button>
-    <p id="effective"></p>
-    <p id="category"></p>
-    <p id="severity"></p>
-    <p id="certainty"></p>
-    <p id="urgency"></p>
-    <p id="event"></p>
-    <p id="headline"></p>
-    <p id="description"></p>
-    <p id="instruction"></p>
-    <p id="response"></p>
+    <div class="alertBox"><button id="weatherAlerts" type='button'>Current Alerts</button>
+    <p id="alertsContainer"></p>
+
     </div>
+    <script>
+    const weatherApi = 'https://api.weather.gov';
+    const weatherZone = 'WIZ028';
+    const weatherEndpoint = `/alerts/active/zone/${weatherZone}`;
+    const weatherAlertsContainer = document.getElementById('alertsContainer');
+    const fetchAlertButton = document.getElementById('weatherAlerts');
+
+    fetchAlertButton.addEventListener('click', () => {
+      //GET request on button click
+      fetch(weatherApi + weatherEndpoint)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          //Print alert data
+          weatherAlertsContainer.innerHTML = ''; //Clear previous alerts
+          if (data.features && data.features.length > 0) {
+            const alerts = data.features;
+            alerts.forEach(alert => {
+              const alertTitle = alert.properties.headline;
+              const alertDescription = alert.properties.description;
+              const alertNode = document.createElement('div');
+              alertNode.innerHTML = `<strong>${alertTitle}</strong><p>${alertDescription}</p>`;
+              weatherAlertsContainer.appendChild(alertNode);
+            });
+          } else {
+            weatherAlertsContainer.innerHTML = 'No active alerts for this zone.';
+          }
+        })
+        .catch(error => {
+          console.error('There was a problem with the fetch operation:', error);
+        });
+    });
+    </script>
+
     <!--Opt in to alerts using .edu email-->
     <div class="optIn"><h2>Enter your email to get alert notifications: </h2>
-        <form action="optIn.php" method="POST">
-            <div class="emailOptIn">
-                <label for="email">Email: </label>
-                <input type="email" id="email" name="email" required>
-                <button type="submit" class="submitButton">Get notifications</button>
-            </div>
-        </form>
+        <form id="emailOptIn">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+            <span id="emailValidationMessage"></span>
+        
+            <button type="submit" class="emailSubmitButton">Get notifications</button>
+          </form>
     </div>
-    <!--Alerts color-coded based on severity and type?-->
+    <script>
+        const emailNotifsForm = document.getElementById('emailOptIn');
+        const emailInput = document.getElementById('email');
+        const emailValidationMessage = document.getElementById('emailValidationMessage');
+    
+        emailNotifsForm.addEventListener('submit', function (event) {
+          event.preventDefault(); //Prevent the form from submitting
+    
+          //Check if the email address ends with UWEC or CVTC
+          const enteredEmail = emailInput.value;
+    
+          if (enteredEmail.endsWith(`@uwec.edu`) || enteredEmail.endsWith('@cvtc.edu')) {
+            //Email is valid
+            emailValidationMessage.textContent = 'Email registration successful!';
+
+            //Send the email to the server
+            fetch('/optInNotifications', {
+            method: 'POST',
+            body: JSON.stringify({ email: enteredEmail }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+            })
+            .then(response => response.json())
+            .then(data => {
+            console.log(data);
+         })
+            .catch(error => {
+            console.error('Error sending email to server:', error);
+            });
+        } else {
+        //Email is invalid
+        emailValidationMessage.textContent = 'Invalid email address. It must end with @uwec.edu or @cvtc.edu';
+      }
+    });
+    </script>
     
 </body>
 </html>
