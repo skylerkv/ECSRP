@@ -38,18 +38,10 @@ body{
     margin: auto;
     padding: 15px;
 }
-.emailOptIn{
+#emailOptIn{
     text-align: center;
     border: none;
-}
-.alertsSubmitButton{
-    background-color: white;
-    color: #1D201F;
-    border: none;
-}
-.alertsSubmitButton:hover{
-    background-color: #1D201F;
-    color: white;
+    padding: 10px;
 }
 nav {
     background-color: #78C0E0;
@@ -74,4 +66,14 @@ nav {
 }
 .nav-li a:hover {
     background-color: #1D201F;
+}
+.websitename {
+    background-color: #1D201F;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+}
+.websitename h1 {
+    margin: 0;
+    font-size: 24px;
 }
