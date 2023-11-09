@@ -64,5 +64,25 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch((error) => {
         console.error(error);
       });
-    
+    fetch('http://localhost:3001/db/food')
+      .then((response) => response.json())
+      .then((data) => {
+        const foodCardsContainer = document.getElementById('food-cards');
+        data.forEach((food) => {
+          const card = document.createElement('div');
+          card.classList.add('card');
+          const cardContent = `
+            <h2>${food.fb_name}</h2>
+            <p>Address: ${food.fb_street_addr}, ${food.fb_city}, ${food.fb_state} ${food.fb_zip}</p>
+            <p>Phone: ${food.fb_phone}</p>
+            <p>Website: <a href="${food.fb_url}" target="_blank">${food.fb_url}</a></p>
+            <!-- add socials and email with icons -->
+          `;
+          card.innerHTML = cardContent;
+          foodCardsContainer.appendChild(card);
+        });
+      })
+    .catch((error) => {
+      console.error(error);
+    });
   });

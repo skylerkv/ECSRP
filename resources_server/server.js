@@ -1,6 +1,8 @@
+//all below for api and db cxn
 import express from 'express';
 import fetch from 'node-fetch';
 import cors from 'cors';
+import mysql from 'mysql2'; //for db cxn
 
 const app = express();
 const port = 3001;
@@ -29,7 +31,6 @@ app.get('/api/shelterData', async (req, res) => {
 });
 
 //for hospitals api
-//MAYBE LOOK FOR CLINICS LATER TOO
 app.get('/api/hospitalData', async (req, res) => {
     const url = 'https://us-hospitals.p.rapidapi.com/?name=Eau Claire';
     const options = {
@@ -49,6 +50,27 @@ app.get('/api/hospitalData', async (req, res) => {
 	    console.error(error);
         res.status(500).send('Error fetching data');
     }
+});
+
+//for food banks db
+const connection = mysql.createConnection({
+    host: 'wayne.cs.uwec.edu',
+    user: 'NEGASHS2861',
+    password: 'R57LBTQW',
+    database: 'cs485group1'
+});
+
+app.get('/db/food', (req, res) => {
+    const query = 'SELECT * FROM foodBanks';
+    connection.query(query, (error, results) => {
+        if(error){
+            console.error(error);
+            res.status(500).send('Error fetching data');
+        }else{
+            console.log(results); //test
+            res.json(results);
+        }
+    });
 });
 
 // Start the server
