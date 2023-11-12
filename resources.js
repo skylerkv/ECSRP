@@ -85,4 +85,25 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch((error) => {
       console.error(error);
     });
+    fetch('http://localhost:3001/db/volunteering') //NOT YET TESTED
+      .then((response) => response.json())
+      .then((data) => {
+        const volunteerCardsContainer = document.getElementById('volunteer-cards');
+        data.forEach((volunteer) => {
+          const card = document.createElement('div');
+          card.classList.add('card');
+          const cardContent = `
+            <h2>${volunteer.v_name}</h2>
+            <p>Address: ${volunteer.v_street_addr}, ${volunteer.v_city}, ${volunteer.v_state} ${volunteer.v_zip}</p>
+            <p>Phone: ${volunteer.v_phone}</p>
+            <p>Website: <a href="${volunteer.v_url}" target="_blank">${volunteer.v_url}</a></p>
+            <!-- add socials and email with icons -->
+          `;
+          card.innerHTML = cardContent;
+          volunteerCardsContainer.appendChild(card);
+        });
+      })
+    .catch((error) => {
+      console.error(error);
+    });
   });

@@ -52,7 +52,7 @@ app.get('/api/hospitalData', async (req, res) => {
     }
 });
 
-//for food banks db
+//db cxn
 const connection = mysql.createConnection({
     host: 'wayne.cs.uwec.edu',
     user: 'NEGASHS2861',
@@ -60,8 +60,23 @@ const connection = mysql.createConnection({
     database: 'cs485group1'
 });
 
+//for food banks db
 app.get('/db/food', (req, res) => {
     const query = 'SELECT * FROM foodBanks';
+    connection.query(query, (error, results) => {
+        if(error){
+            console.error(error);
+            res.status(500).send('Error fetching data');
+        }else{
+            console.log(results); //test
+            res.json(results);
+        }
+    });
+});
+
+//for volunteering db HAVENT TESTED YET
+app.get('/db/volunteering', (req, res) => {
+    const query = 'SELECT * FROM volunteerGroups';
     connection.query(query, (error, results) => {
         if(error){
             console.error(error);
