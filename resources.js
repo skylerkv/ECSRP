@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Fetch data from your shelter server
+    const shelterMarkers = [] 
+    const volunteerMarkers = []; 
+    const foodMarkers = [];
     fetch('http://localhost:3001/api/shelterData')
       .then((response) => response.json())
       .then((data) => {
@@ -12,6 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
           const card = document.createElement('div');
           card.classList.add('card'); // Add CSS classes for styling
   
+          const [lat,long] = shelter.location.split(','); //pulls lat and long
+
+          card.dataset.lat = lat; //stores lat data
+          card.dataset.long = long; //stores long data
+
           // Create the content for the card
           const cardContent = `
             <img ${shelter.photo_urls}>
@@ -27,6 +35,31 @@ document.addEventListener('DOMContentLoaded', () => {
   
           // Append the card to the container
           shelterCardsContainer.appendChild(card);
+
+          card.addEventListener('click', () => {
+            const lat = parseFloat(card.dataset.lat);
+            const long = parseFloat(card.dataset.long);
+
+            card.classList.toggle('selected'); //color change?
+
+            if(card.classList.contains('selected')){
+              const marker = new google.maps.Marker({
+                position: {lat: lat, lng: long},
+                map: map,
+                title: shelter.name
+              });
+              shelterMarkers.push(marker);
+            }else{
+              const markerIndex = shelterMarkers.findIndex(
+                (marker) =>
+                marker.getPosition().lat() === lat && marker.getPosition().lng() === long
+              ); 
+              if(markerIndex !== -1) {
+                shelterMarkers[markerIndex].setMap(null); //testing
+                shelterMarkers.splice(markerIndex,1); //testing
+              }
+            }
+          });
         });
       })
       .catch((error) => {
@@ -71,6 +104,12 @@ document.addEventListener('DOMContentLoaded', () => {
         data.forEach((food) => {
           const card = document.createElement('div');
           card.classList.add('card');
+          
+          const [lat,long] = food.fb_location.split(',');
+
+          card.dataset.lat = lat;
+          card.dataset.long = long;
+          
           const cardContent = `
             <h2>${food.fb_name}</h2>
             <p>Address: ${food.fb_street_addr}, ${food.fb_city}, ${food.fb_state} ${food.fb_zip}</p>
@@ -80,18 +119,49 @@ document.addEventListener('DOMContentLoaded', () => {
           `;
           card.innerHTML = cardContent;
           foodCardsContainer.appendChild(card);
+
+          card.addEventListener('click', () => {
+            const lat = parseFloat(card.dataset.lat);
+            const long = parseFloat(card.dataset.long);
+
+            card.classList.toggle('selected'); //color change test
+
+            if(card.classList.contains('selected')) {
+              const marker = new google.maps.Marker({
+                position: {lat: lat, lng: long},
+                map: map,
+                title: food.fb_name
+              });
+              foodMarkers.push(marker);
+            }else {
+              const markerIndex = foodMarkers.findIndex(
+                (marker) =>
+                marker.getPosition().lat() === lat && marker.getPosition().lng() === long
+              );
+              if(markerIndex !== -1) {
+                foodMarkers[markerIndex].setMap(null);
+                foodMarkers.splice(markerIndex,1);
+              }
+            }
+          });
         });
       })
     .catch((error) => {
       console.error(error);
     });
-    fetch('http://localhost:3001/db/volunteering') //NOT YET TESTED
+    fetch('http://localhost:3001/db/volunteering') 
       .then((response) => response.json())
       .then((data) => {
         const volunteerCardsContainer = document.getElementById('volunteer-cards');
         data.forEach((volunteer) => {
           const card = document.createElement('div');
           card.classList.add('card');
+          
+          const [lat,long] = volunteer.v_location.split(',');
+
+          card.dataset.lat = lat;
+          card.dataset.long = long;
+          
           const cardContent = `
             <h2>${volunteer.v_name}</h2>
             <p>Address: ${volunteer.v_street_addr}, ${volunteer.v_city}, ${volunteer.v_state} ${volunteer.v_zip}</p>
@@ -101,6 +171,31 @@ document.addEventListener('DOMContentLoaded', () => {
           `;
           card.innerHTML = cardContent;
           volunteerCardsContainer.appendChild(card);
+
+          card.addEventListener('click', () => {
+            const lat = parseFloat(card.dataset.lat);
+            const long = parseFloat(card.dataset.long);
+
+            card.classList.toggle('selected'); //color change
+
+            if(card.classList.contains('selected')){
+              const marker = new google.maps.Marker({
+                position: {lat: parseFloat(lat), lng: parseFloat(long)},
+                map: map,
+                title: volunteer.v_name
+              });
+              volunteerMarkers.push(marker); 
+            }else{
+              const markerIndex = volunteerMarkers.findIndex(
+                (marker) =>
+                  marker.getPosition().lat() === lat && marker.getPosition().lng() === long
+              ); 
+              if(markerIndex !== -1) {
+                volunteerMarkers[markerIndex].setMap(null); 
+                volunteerMarkers.splice(markerIndex,1); 
+              }
+            }
+          });
         });
       })
     .catch((error) => {
