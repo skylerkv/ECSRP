@@ -201,4 +201,33 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch((error) => {
       console.error(error);
     });
+    const shelterCardsContainer = document.getElementById('shelter-cards');
+    const hospitalCardsContainer = document.getElementById('hospital-cards');
+    const foodCardsContainer = document.getElementById('food-cards');
+    const volunteerCardsContainer = document.getElementById('volunteer-cards');
+    const selectElement = document.getElementById('type');
+
+    selectElement.addEventListener('change', () => {
+      const selectedType = selectElement.value;
+
+      shelterCardsContainer.style.display = 'none';
+      hospitalCardsContainer.style.display = 'none';
+      foodCardsContainer.style.display = 'none';
+      volunteerCardsContainer.style.display = 'none';
+
+      if (selectedType === 'Shelters') {
+        shelterCardsContainer.style.display = 'block';
+      }else if (selectedType === 'FoodBanks') {
+        foodCardsContainer.style.display = 'block';
+      }else if (selectedType === 'MedicalFacilities') {
+        hospitalCardsContainer.style.display = 'block';
+      }else if (selectedType === 'Orgs') {
+        volunteerCardsContainer.style.display = 'block';
+      }else if (selectedType === 'All') {
+        shelterCardsContainer.style.display = 'block';
+        hospitalCardsContainer.style.display = 'block';
+        foodCardsContainer.style.display = 'block';
+        volunteerCardsContainer.style.display = 'block';
+      }
+    });
   });
