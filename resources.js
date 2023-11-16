@@ -1,4 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
+    function success(position){
+      const userLoc = {
+        lat: position.coords.lat,
+        long: position.coords.long
+      };
+      console.log("user loc:", userLoc); //test
+
+      //filterByDistance(userLoc.lat, userLoc.long);
+    }
+
+    function error(error){
+      console.error("error getting user loc", error.message);
+    }
+
+    if('geolocation' in navigator){ //get user loc
+      navigator.geolocation.getCurrentPosition(success,error);
+    }else{
+      console.error("geoloc isn't supported by browser");
+    }
+
+    //fxn for filterByDistance() below
+    // function filterByDistance(lat1,long1,lat2,long2){
+    //   const latDiff = lat2 - lat1;
+    //   const longDiff = long2 - long1;
+    //   const distance = Math.sqrt((latDiff*latDiff) + (longDiff*longDiff));
+    //   return distance;
+    // }
+  
     // Fetch data from your shelter server
     const shelterMarkers = [] 
     const volunteerMarkers = []; 
