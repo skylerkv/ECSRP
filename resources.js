@@ -1,32 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
-    function success(position){
-      const userLoc = {
-        lat: position.coords.lat,
-        long: position.coords.long
-      };
-      console.log("user loc:", userLoc); //test
-
-      //filterByDistance(userLoc.lat, userLoc.long);
-    }
-
-    function error(error){
-      console.error("error getting user loc", error.message);
-    }
-
-    if('geolocation' in navigator){ //get user loc
-      navigator.geolocation.getCurrentPosition(success,error);
-    }else{
-      console.error("geoloc isn't supported by browser");
-    }
-
-    //fxn for filterByDistance() below
-    // function filterByDistance(lat1,long1,lat2,long2){
-    //   const latDiff = lat2 - lat1;
-    //   const longDiff = long2 - long1;
-    //   const distance = Math.sqrt((latDiff*latDiff) + (longDiff*longDiff));
-    //   return distance;
-    // }
+  let userLoc; //variable to get user's current location
   
+  //pulls user current location  
+  function success(position){
+    userLoc = {
+      lat: position.coords.lat,
+      long: position.coords.long
+    };
+    console.log("success getting user loc");
+  }
+  function error(error){
+    console.error("error getting user loc", error.message);
+  }
+
+  if('geolocation' in navigator){ //get user loc
+    navigator.geolocation.getCurrentPosition(success,error);
+  }else{
+    console.error("geoloc isn't supported by browser");
+  }
+
     // Fetch data from your shelter server
     const shelterMarkers = [] 
     const volunteerMarkers = []; 
@@ -97,30 +89,38 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('http://localhost:3001/api/hospitalData')
       .then((response) => response.json())
       .then((data) => {
-        // Assuming 'data' is an array of shelter objects
+        console.log("hospital data:", data); //test
+        if(Array.isArray(data)){
+          if(!data.some(item => item.location)){
+            return; //no location info skip distance filter
+          }
+
+          // Assuming 'data' is an array of shelter objects
+          const hospitalCardsContainer = document.getElementById('hospital-cards');
   
-        const hospitalCardsContainer = document.getElementById('hospital-cards');
+          data.forEach((hospital) => {
+            // Create a div element for each shelter card
+            const card = document.createElement('div');
+            card.classList.add('card'); // Add CSS classes for styling
   
-        data.forEach((hospital) => {
-          // Create a div element for each shelter card
-          const card = document.createElement('div');
-          card.classList.add('card'); // Add CSS classes for styling
+            // Create the content for the card
+            const cardContent = `
+              <h2>${hospital["Hospital Name"]}</h2>
+              <p>Address: ${hospital["Street Address"]}, ${hospital.city}, ${hospital.state} ${hospital.zip_code}</p>
+              <p>Phone: ${hospital.phone}</p>
+              <p>Website: <a href="${hospital.Url}" target="_blank">${hospital.Url}</a></p>
+              <!-- add socials and email with icons -->
+            `;
   
-          // Create the content for the card
-          const cardContent = `
-            <h2>${hospital["Hospital Name"]}</h2>
-            <p>Address: ${hospital["Street Address"]}, ${hospital.city}, ${hospital.state} ${hospital.zip_code}</p>
-            <p>Phone: ${hospital.phone}</p>
-            <p>Website: <a href="${hospital.Url}" target="_blank">${hospital.Url}</a></p>
-            <!-- add socials and email with icons -->
-          `;
+            // Set the card's innerHTML to the content
+            card.innerHTML = cardContent;
   
-          // Set the card's innerHTML to the content
-          card.innerHTML = cardContent;
-  
-          // Append the card to the container
-          hospitalCardsContainer.appendChild(card);
-        });
+            // Append the card to the container
+            hospitalCardsContainer.appendChild(card);
+          });
+        }else{
+          console.error("invalid data structure for hospitals:" , data);
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -229,6 +229,8 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch((error) => {
       console.error(error);
     });
+
+    //filters by type
     const shelterCardsContainer = document.getElementById('shelter-cards');
     const hospitalCardsContainer = document.getElementById('hospital-cards');
     const foodCardsContainer = document.getElementById('food-cards');
@@ -257,5 +259,58 @@ document.addEventListener('DOMContentLoaded', () => {
         foodCardsContainer.style.display = 'block';
         volunteerCardsContainer.style.display = 'block';
       }
+    });
+
+    //filter by distance
+
+    //fxn for calculating distance btwn user and location 
+    function calculateDistance(lat1,long1,lat2,long2){
+      const latDiff = lat2 - lat1;
+      const longDiff = long2 - long1;
+      const distance = Math.sqrt((latDiff*latDiff) + (longDiff*longDiff));
+      return distance;
+    }
+
+    function filterDistance(selectedDistance){
+      shelterMarkers.forEach((marker, index) => {
+        const lat = marker.getPosition().lat();
+        const long = marker.getPosition().lng();
+        const distance = calculateDistance(userLoc.lat, userLoc.long, lat, long);
+  
+        if(distance <= selectedDistance){
+          shelterCardsContainer.children[index].style.display = 'block';
+        }else{
+          shelterCardsContainer.children[index].style.display = 'none';
+        }
+      });
+      foodMarkers.forEach((marker, index) => {
+        const lat = marker.getPosition().lat();
+        const long = marker.getPosition().lng();
+        const distance = calculateDistance(userLoc.lat, userLoc.long, lat, long);
+  
+        if(distance <= selectedDistance){
+          foodCardsContainer.children[index].style.display = 'block';
+        }else{
+          foodCardsContainer.children[index].style.display = 'none';
+        }
+      });
+      volunteerMarkers.forEach((marker, index) => {
+        const lat = marker.getPosition().lat();
+        const long = marker.getPosition().lng();
+        const distance = calculateDistance(userLoc.lat, userLoc.long, lat, long);
+  
+        if(distance <= selectedDistance){
+          volunteerCardsContainer.children[index].style.display = 'block';
+        }else{
+          volunteerCardsContainer.children[index].style.display = 'none';
+        }
+      });
+    }
+  
+    const distanceSelectElement = document.getElementById('distance');
+  
+    distanceSelectElement.addEventListener('change', () => {
+      const selectedDistance = parseInt(distanceSelectElement.value);
+      filterDistance(selectedDistance);
     });
   });
