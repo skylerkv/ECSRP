@@ -42,12 +42,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
           // Create the content for the card
           const cardContent = `
-            <img ${shelter.photo_urls}>
             <h2>${shelter.name}</h2>
-            <p>Address: ${shelter.address}, ${shelter.city}, ${shelter.state} ${shelter.zip_code}</p>
-            <p>Phone: ${shelter.phone_number}</p>
-            <p>Website: <a href="${shelter.official_website}" target="_blank">${shelter.official_website}</a></p>
-            <!-- add socials and email with icons -->
+            <p>Homeless Shelter - ${shelter.address}, ${shelter.city}, ${shelter.state} ${shelter.zip_code}</p>
+            <p>${shelter.phone_number}</p>
+            <div class="socials">
+              <a href="${shelter.official_website}" target="_blank"><img src="/webicon.png" alt="website" width=50px></a>
+              <a href="${shelter.facebook}" target="_blank"><img src="/fbicon.png" alt="facebook" width=40px></a>
+              <a href="${shelter.twitter}" target="_blank"><img src="/twticon.png" alt="twitter" width=40px></a>
+            </div>
+            <div class="sociallink">
+              <p><a href="${shelter.official_website}" target="_blank">Website</a></p>
+              <p><a href="${shelter.facebook}" target="_blank">Facebook</a></p>
+              <p><a href="${shelter.twitter}" target="_blank">Twitter</a></p>
+              </div>
           `;
   
           // Set the card's innerHTML to the content
@@ -86,45 +93,54 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error(error);
     });
 
-    fetch('http://localhost:3001/api/hospitalData')
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("hospital data:", data); //test
-        if(Array.isArray(data)){
-          if(!data.some(item => item.location)){
-            return; //no location info skip distance filter
-          }
+    function makeDelayedHospitalRequest() {
+      const apiUrl = 'http://localhost:3001/api/hospitalData';
+  
+      setTimeout(() => {
+          fetch(apiUrl)
+              .then(response => response.json())
+              .then(data => {
+                  console.log("hospital data:", data); //test
+                  if (Array.isArray(data)) {
+                      if (!data.some(item => item.location)) {
+                          return; // no location info, skip distance filter
+                      }
+  
+                      // Assuming 'data' is an array of shelter objects
+                      const hospitalCardsContainer = document.getElementById('hospital-cards');
+  
+                      data.forEach(hospital => {
+                          // Create a div element for each shelter card
+                          const card = document.createElement('div');
+                          card.classList.add('card'); // Add CSS classes for styling
+  
+                          // Create the content for the card
+                          const cardContent = `
+                            <h2>${hospital["Hospital Name"]}</h2>
+                            <p>Address: ${hospital["Street Address"]}, ${hospital.city}, ${hospital.state} ${hospital.zip_code}</p>
+                            <p>Phone: ${hospital.phone}</p>
+                            <p>Website: <a href="${hospital.Url}" target="_blank">${hospital.Url}</a></p>
+                            <!-- add socials and email with icons -->
+                          `;
+  
+                          // Set the card's innerHTML to the content
+                          card.innerHTML = cardContent;
+  
+                          // Append the card to the container
+                          hospitalCardsContainer.appendChild(card);
+                      });
+                  } else {
+                      console.error("invalid data structure for hospitals:", data);
+                  }
+              })
+              .catch(error => {
+                  console.error(error);
+              });
+      }, 10000); // 5 second delay
+  }
+  // Call the function to make the delayed hospital API request
+  makeDelayedHospitalRequest();
 
-          // Assuming 'data' is an array of shelter objects
-          const hospitalCardsContainer = document.getElementById('hospital-cards');
-  
-          data.forEach((hospital) => {
-            // Create a div element for each shelter card
-            const card = document.createElement('div');
-            card.classList.add('card'); // Add CSS classes for styling
-  
-            // Create the content for the card
-            const cardContent = `
-              <h2>${hospital["Hospital Name"]}</h2>
-              <p>Address: ${hospital["Street Address"]}, ${hospital.city}, ${hospital.state} ${hospital.zip_code}</p>
-              <p>Phone: ${hospital.phone}</p>
-              <p>Website: <a href="${hospital.Url}" target="_blank">${hospital.Url}</a></p>
-              <!-- add socials and email with icons -->
-            `;
-  
-            // Set the card's innerHTML to the content
-            card.innerHTML = cardContent;
-  
-            // Append the card to the container
-            hospitalCardsContainer.appendChild(card);
-          });
-        }else{
-          console.error("invalid data structure for hospitals:" , data);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
     fetch('http://localhost:3001/db/food')
       .then((response) => response.json())
       .then((data) => {
@@ -140,11 +156,20 @@ document.addEventListener('DOMContentLoaded', () => {
           
           const cardContent = `
             <h2>${food.fb_name}</h2>
-            <p>Address: ${food.fb_street_addr}, ${food.fb_city}, ${food.fb_state} ${food.fb_zip}</p>
-            <p>Phone: ${food.fb_phone}</p>
-            <p>Website: <a href="${food.fb_url}" target="_blank">${food.fb_url}</a></p>
-            <!-- add socials and email with icons -->
+            <p>Food Bank - ${food.fb_street_addr}, ${food.fb_city}, ${food.fb_state} ${food.fb_zip}</p>
+            <p>${food.fb_phone}</p>
+            <div class="socials">
+              <a href="${food.fb_url}" target="_blank"><img src="/webicon.png" alt="website" width=50px></a>
+              <a href="${food.fb_facebook}" target="_blank"><img src="/fbicon.png" alt="facebook" width=40px></a>
+              <a href="${food.fb_twitter}" target="_blank"><img src="/twticon.png" alt="twitter" width=40px></a>
+            </div>
+            <div class="sociallink">
+              <p><a href="${food.fb_url}" target="_blank">Website</a></p>
+              <p><a href="${food.fb_facebook}" target="_blank">Facebook</a></p>
+              <p><a href="${food.fb_twitter}" target="_blank">Twitter</a></p>
+              </div>
           `;
+
           card.innerHTML = cardContent;
           foodCardsContainer.appendChild(card);
 
@@ -190,13 +215,30 @@ document.addEventListener('DOMContentLoaded', () => {
           card.dataset.lat = lat;
           card.dataset.long = long;
           
+          // const cardContent = `
+          //   <h2>${volunteer.v_name}</h2>
+          //   <p>Address: ${volunteer.v_street_addr}, ${volunteer.v_city}, ${volunteer.v_state} ${volunteer.v_zip}</p>
+          //   <p>Phone: ${volunteer.v_phone}</p>
+          //   <p>Website: <a href="${volunteer.v_url}" target="_blank">${volunteer.v_url}</a></p>
+          //   <!-- add socials and email with icons -->
+          // `;
+
           const cardContent = `
             <h2>${volunteer.v_name}</h2>
-            <p>Address: ${volunteer.v_street_addr}, ${volunteer.v_city}, ${volunteer.v_state} ${volunteer.v_zip}</p>
-            <p>Phone: ${volunteer.v_phone}</p>
-            <p>Website: <a href="${volunteer.v_url}" target="_blank">${volunteer.v_url}</a></p>
-            <!-- add socials and email with icons -->
+            <p>Organization - ${volunteer.v_street_addr}, ${volunteer.v_city}, ${volunteer.v_state} ${volunteer.v_zip}</p>
+            <p>${volunteer.v_phone}</p>
+            <div class="socials">
+              <a href="${volunteer.v_url}" target="_blank"><img src="/webicon.png" alt="website" width=50px></a>
+              <a href="${volunteer.v_facebook}" target="_blank"><img src="/fbicon.png" alt="facebook" width=40px></a>
+              <a href="${volunteer.v_twitter}" target="_blank"><img src="/twticon.png" alt="twitter" width=40px></a>
+            </div>
+            <div class="sociallink">
+              <p><a href="${volunteer.v_url}" target="_blank">Website</a></p>
+              <p><a href="${volunteer.v_facebook}" target="_blank">Facebook</a></p>
+              <p><a href="${volunteer.v_twitter}" target="_blank">Twitter</a></p>
+              </div>
           `;
+
           card.innerHTML = cardContent;
           volunteerCardsContainer.appendChild(card);
 
@@ -276,7 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const lat = marker.getPosition().lat();
         const long = marker.getPosition().lng();
         const distance = calculateDistance(userLoc.lat, userLoc.long, lat, long);
-  
+        console.log(distance); //test
         if(distance <= selectedDistance){
           shelterCardsContainer.children[index].style.display = 'block';
         }else{
