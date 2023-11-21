@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const shelterMarkers = [] 
     const volunteerMarkers = []; 
     const foodMarkers = [];
+    const medicalMarkers = [];
     fetch('http://localhost:3001/api/shelterData')
       .then((response) => response.json())
       .then((data) => {
@@ -93,54 +94,114 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error(error);
     });
 
-    function makeDelayedHospitalRequest() {
-      const apiUrl = 'http://localhost:3001/api/hospitalData';
+  //   function makeDelayedHospitalRequest() {
+  //     const apiUrl = 'http://localhost:3001/api/hospitalData';
   
-      setTimeout(() => {
-          fetch(apiUrl)
-              .then(response => response.json())
-              .then(data => {
-                  console.log("hospital data:", data); //test
-                  if (Array.isArray(data)) {
-                      if (!data.some(item => item.location)) {
-                          return; // no location info, skip distance filter
-                      }
+  //     setTimeout(() => {
+  //         fetch(apiUrl)
+  //             .then(response => response.json())
+  //             .then(data => {
+  //                 console.log("hospital data:", data); //test
+  //                 if (Array.isArray(data)) {
+  //                     if (!data.some(item => item.location)) {
+  //                         return; // no location info, skip distance filter
+  //                     }
   
-                      // Assuming 'data' is an array of shelter objects
-                      const hospitalCardsContainer = document.getElementById('hospital-cards');
+  //                     // Assuming 'data' is an array of shelter objects
+  //                     const hospitalCardsContainer = document.getElementById('hospital-cards');
   
-                      data.forEach(hospital => {
-                          // Create a div element for each shelter card
-                          const card = document.createElement('div');
-                          card.classList.add('card'); // Add CSS classes for styling
+  //                     data.forEach(hospital => {
+  //                         // Create a div element for each shelter card
+  //                         const card = document.createElement('div');
+  //                         card.classList.add('card'); // Add CSS classes for styling
   
-                          // Create the content for the card
-                          const cardContent = `
-                            <h2>${hospital["Hospital Name"]}</h2>
-                            <p>Address: ${hospital["Street Address"]}, ${hospital.city}, ${hospital.state} ${hospital.zip_code}</p>
-                            <p>Phone: ${hospital.phone}</p>
-                            <p>Website: <a href="${hospital.Url}" target="_blank">${hospital.Url}</a></p>
-                            <!-- add socials and email with icons -->
-                          `;
+  //                         // Create the content for the card
+  //                         const cardContent = `
+  //                           <h2>${hospital["Hospital Name"]}</h2>
+  //                           <p>Address: ${hospital["Street Address"]}, ${hospital.city}, ${hospital.state} ${hospital.zip_code}</p>
+  //                           <p>Phone: ${hospital.phone}</p>
+  //                           <p>Website: <a href="${hospital.Url}" target="_blank">${hospital.Url}</a></p>
+  //                           <!-- add socials and email with icons -->
+  //                         `;
   
-                          // Set the card's innerHTML to the content
-                          card.innerHTML = cardContent;
+  //                         // Set the card's innerHTML to the content
+  //                         card.innerHTML = cardContent;
   
-                          // Append the card to the container
-                          hospitalCardsContainer.appendChild(card);
-                      });
-                  } else {
-                      console.error("invalid data structure for hospitals:", data);
-                  }
-              })
-              .catch(error => {
-                  console.error(error);
-              });
-      }, 10000); // 5 second delay
-  }
-  // Call the function to make the delayed hospital API request
-  makeDelayedHospitalRequest();
+  //                         // Append the card to the container
+  //                         hospitalCardsContainer.appendChild(card);
+  //                     });
+  //                 } else {
+  //                     console.error("invalid data structure for hospitals:", data);
+  //                 }
+  //             })
+  //             .catch(error => {
+  //                 console.error(error);
+  //             });
+  //     }, 10000); // 5 second delay
+  // }
+  // // Call the function to make the delayed hospital API request
+  // makeDelayedHospitalRequest();
+    fetch('http://localhost:3001/db/medical')
+      .then((response) => response.json())
+      .then((data) => {
+        const medicalCardsContainer = document.getElementById('hospital-cards');
+        data.forEach((medical) => {
+          const card = document.createElement('div');
+          card.classList.add('card');
+          
+          const [lat,long] = medical.m_location.split(',');
 
+          card.dataset.lat = lat;
+          card.dataset.long = long;
+          
+          const cardContent = `
+            <h2>${medical.m_name}</h2>
+            <p>Medical Center - ${medical.m_street_addr}, ${medical.m_city}, ${medical.m_state} ${medical.m_zip}</p>
+            <p>${medical.m_phone}</p>
+            <div class="socials">
+              <a href="${medical.m_url}" target="_blank"><img src="/webicon.png" alt="website" width=50px></a>
+              <a href="${medical.m_facebook}" target="_blank"><img src="/fbicon.png" alt="facebook" width=40px></a>
+              <a href="${medical.m_twitter}" target="_blank"><img src="/twticon.png" alt="twitter" width=40px></a>
+            </div>
+            <div class="sociallink">
+              <p><a href="${medical.m_url}" target="_blank">Website</a></p>
+              <p><a href="${medical.m_facebook}" target="_blank">Facebook</a></p>
+              <p><a href="${medical.m_twitter}" target="_blank">Twitter</a></p>
+              </div>
+          `;
+
+          card.innerHTML = cardContent;
+          medicalCardsContainer.appendChild(card);
+
+          card.addEventListener('click', () => {
+            const lat = parseFloat(card.dataset.lat);
+            const long = parseFloat(card.dataset.long);
+
+            card.classList.toggle('selected'); //color change test
+
+            if(card.classList.contains('selected')) {
+              const marker = new google.maps.Marker({
+                position: {lat: lat, lng: long},
+                map: map,
+                title: medical.m_name
+              });
+              medicalMarkers.push(marker);
+            }else {
+              const markerIndex = medicalMarkers.findIndex(
+                (marker) =>
+                marker.getPosition().lat() === lat && marker.getPosition().lng() === long
+              );
+              if(markerIndex !== -1) {
+                medicalMarkers[markerIndex].setMap(null);
+                medicalMarkers.splice(markerIndex,1);
+              }
+            }
+          });
+        });
+      })
+    .catch((error) => {
+      console.error(error);
+    });
     fetch('http://localhost:3001/db/food')
       .then((response) => response.json())
       .then((data) => {

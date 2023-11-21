@@ -74,9 +74,23 @@ app.get('/db/food', (req, res) => {
     });
 });
 
-//for volunteering db HAVENT TESTED YET
+//for volunteering db 
 app.get('/db/volunteering', (req, res) => {
     const query = 'SELECT * FROM volunteerGroups';
+    connection.query(query, (error, results) => {
+        if(error){
+            console.error(error);
+            res.status(500).send('Error fetching data');
+        }else{
+            console.log(results); //test
+            res.json(results);
+        }
+    });
+});
+
+//for medical db
+app.get('/db/medical', (req, res) => {
+    const query = 'SELECT * FROM medical';
     connection.query(query, (error, results) => {
         if(error){
             console.error(error);
