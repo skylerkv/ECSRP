@@ -328,6 +328,41 @@ document.addEventListener('DOMContentLoaded', () => {
       return distance;
     }
 
+
+    function filterDistance(selectedDistance) {
+      const allCardsContainers = document.querySelectorAll('#shelter-cards, #hospital-cards, #food-cards, #volunteer-cards');
+    
+      allCardsContainers.forEach((cardsContainer) => {
+        const cards = Array.from(cardsContainer.querySelectorAll('.card'));
+    
+        // Get all cards initially
+        cards.forEach((card) => {
+          card.style.display = 'block';
+        });
+    
+        // Filter cards based on distance if selectedDistance is not 'all'
+        if (selectedDistance !== 'all') {
+          const filteredCards = cards.filter((card) => {
+            const lat = parseFloat(card.dataset.lat);
+            const long = parseFloat(card.dataset.long);
+            const distance = calculateDistance(userLoc.lat, userLoc.long, lat, long);
+    
+            return distance <= parseInt(selectedDistance);
+          });
+    
+          // Hide cards that are not in the filtered list
+          cards.forEach((card) => {
+            if (!filteredCards.includes(card)) {
+              card.style.display = 'none';
+            }
+          });
+        }
+      });
+    
+      return 'Filter applied successfully';
+    }
+    
+
     function filterDistance(selectedDistance) {
       const allCardsContainers = document.querySelectorAll('#shelter-cards, #hospital-cards, #food-cards, #volunteer-cards');
       console.log("we're in the fxn");
