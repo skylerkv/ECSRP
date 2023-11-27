@@ -362,18 +362,20 @@ document.addEventListener('DOMContentLoaded', () => {
       return 'Filter applied successfully';
     }
     
-
     function filterDistance(selectedDistance) {
       const allCardsContainers = document.querySelectorAll('#shelter-cards, #hospital-cards, #food-cards, #volunteer-cards');
       console.log("we're in the fxn");
+    
       allCardsContainers.forEach((cardsContainer) => {
+        const existingCardIds = new Set();
         const cards = Array.from(cardsContainer.querySelectorAll('.card'));
-        console.log("we're in the loop");
-
-        // Sort cards based on distance
-        if (selectedDistance !== "all") {
-          cards.sort((cardA, cardB) => {
-            console.log("we're in the sort");
+        console.log(`Before filtering - Container: ${cardsContainer.id}, Number of cards: ${cards.length}`);
+    
+        // Clear the container
+        cardsContainer.innerHTML = '';
+    
+        // Sort and filter cards based on distance
+        cards.sort((cardA, cardB) => {
             const latA = parseFloat(cardA.dataset.lat);
             const longA = parseFloat(cardA.dataset.long);
             const distanceA = calculateDistance(userLoc.lat, userLoc.long, latA, longA);
@@ -383,67 +385,81 @@ document.addEventListener('DOMContentLoaded', () => {
             const distanceB = calculateDistance(userLoc.lat, userLoc.long, latB, longB);
     
             return distanceA - distanceB; // Sort in ascending order
-          });
-
-          
-          cards.forEach((card) => {
-            cardsContainer.appendChild(card);
-          });
-        }
-
-        // cards.sort((cardA, cardB) => {
-        //   console.log("we're in the sort");
-        //   const latA = parseFloat(cardA.dataset.lat);
-        //   const longA = parseFloat(cardA.dataset.long);
-        //   const distanceA = calculateDistance(userLoc.lat, userLoc.long, latA, longA);
-    
-        //   const latB = parseFloat(cardB.dataset.lat);
-        //   const longB = parseFloat(cardB.dataset.long);
-        //   const distanceB = calculateDistance(userLoc.lat, userLoc.long, latB, longB);
-    
-        //   return distanceA - distanceB; // Sort in ascending order
-        // });
-    
-        // // Append the sorted cards back to the container
-        // cards.forEach((card) => {
-        //   cardsContainer.appendChild(card);
-        // });
-
-
-        // Show all cards
-        // cards.forEach((card) => {
-        //   card.style.display = 'block';
-        // });
-
-        if (selectedDistance !== "all") {
-          cards.forEach((card) => {
+          })
+          .forEach((card) => {
             const lat = parseFloat(card.dataset.lat);
             const long = parseFloat(card.dataset.long);
             const distance = calculateDistance(userLoc.lat, userLoc.long, lat, long);
     
-            if (distance <= parseInt(selectedDistance)) {
-              card.style.display = 'block';
-            } else {
-              card.style.display = 'none';
+            if (distance <= parseInt(selectedDistance) || selectedDistance === "all") {
+              const cardId = `${lat}-${long}`;
+              if (!existingCardIds.has(cardId)) {
+                cardsContainer.appendChild(card);
+                existingCardIds.add(cardId);
+              }
             }
           });
-        }
-
-        cards.forEach((card) => {
-          const lat = parseFloat(card.dataset.lat);
-          const long = parseFloat(card.dataset.long);
-          const distance = calculateDistance(userLoc.lat, userLoc.long, lat, long);
     
-          if (distance <= selectedDistance) {
-            card.style.display = 'block';
-          } else {
-            card.style.display = 'none';
-          }
+        // Show all cards
+        cards.forEach((card) => {
+          card.style.display = 'none';
         });
+    
+        console.log(`After filtering - Container: ${cardsContainer.id}, Number of cards: ${cardsContainer.querySelectorAll('.card').length}`);
       });
+    
       return "Filter applied successfully";
     }
-  
+    
+    function filterDistance(selectedDistance) {
+      const allCardsContainers = document.querySelectorAll('#shelter-cards, #hospital-cards, #food-cards, #volunteer-cards');
+      console.log("we're in the fxn");
+    
+      allCardsContainers.forEach((cardsContainer) => {
+        const existingCardIds = new Set();
+        const cards = Array.from(cardsContainer.querySelectorAll('.card'));
+        console.log(`Before filtering - Container: ${cardsContainer.id}, Number of cards: ${cards.length}`);
+    
+        // Clear the container
+        //cardsContainer.innerHTML = '';
+    
+        // Sort and filter cards based on distance
+        cards.sort((cardA, cardB) => {
+            const latA = parseFloat(cardA.dataset.lat);
+            const longA = parseFloat(cardA.dataset.long);
+            const distanceA = calculateDistance(userLoc.lat, userLoc.long, latA, longA);
+    
+            const latB = parseFloat(cardB.dataset.lat);
+            const longB = parseFloat(cardB.dataset.long);
+            const distanceB = calculateDistance(userLoc.lat, userLoc.long, latB, longB);
+    
+            return distanceA - distanceB; // Sort in ascending order
+          })
+          .forEach((card) => {
+            const lat = parseFloat(card.dataset.lat);
+            const long = parseFloat(card.dataset.long);
+            const distance = calculateDistance(userLoc.lat, userLoc.long, lat, long);
+    
+            if (distance <= parseInt(selectedDistance) || selectedDistance === "all") {
+              const cardId = `${lat}-${long}`;
+              if (!existingCardIds.has(cardId)) {
+                cardsContainer.appendChild(card);
+                existingCardIds.add(cardId);
+              }
+            }
+          });
+    
+        // Show all cards
+        cards.forEach((card) => {
+          card.style.display = 'block';
+        });
+    
+        console.log(`After filtering - Container: ${cardsContainer.id}, Number of cards: ${cardsContainer.querySelectorAll('.card').length}`);
+      });
+    
+      return "Filter applied successfully";
+    }
+    
     const distanceSelectElement = document.getElementById('distance');
     const typeSelectElement = document.getElementById('type');
 
