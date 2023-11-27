@@ -1,4 +1,4 @@
-#cards {
+.card{
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
@@ -6,4 +6,45 @@
     background-color: #f9f9f9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     color: black;
+}
+
+.card.selected{
+    background-color: #f9f9f9f9;
+}
+
+.card h2{
+    font-size: x-large;
+    color: #78C0E0;
+}
+
+.card p{
+    color: gray;
+}
+
+img {
+    margin-bottom: -20px;
+    margin-right: 50px;
+    margin-left: 30px;
+}
+
+.socials{
+    display: flex;
+    align-items: center;
+}
+
+.sociallink{
+    display: flex;
+    align-items: center;
+}
+
+.sociallink p{
+    margin-right: 47px;
+    margin-left: 20px;
+    text-align: center;
+}
+
+.sociallink a{
+    color: #78C0E0;
+    text-decoration: none;
+    text-align: center;
 }
