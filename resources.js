@@ -4,15 +4,15 @@ document.addEventListener('DOMContentLoaded', () => {
   //pulls user current location  
   function success(position){
     userLoc = {
-      lat: position.coords.lat,
-      long: position.coords.long
+      lat: position.coords.latitude,
+      long: position.coords.longitude
     };
     console.log("success getting user loc");
+    console.log(userLoc); //test success!
   }
   function error(error){
     console.error("error getting user loc", error.message);
   }
-
   if('geolocation' in navigator){ //get user loc
     navigator.geolocation.getCurrentPosition(success,error);
   }else{
@@ -24,123 +24,77 @@ document.addEventListener('DOMContentLoaded', () => {
     const volunteerMarkers = []; 
     const foodMarkers = [];
     const medicalMarkers = [];
-    fetch('http://localhost:3001/api/shelterData')
-      .then((response) => response.json())
-      .then((data) => {
-        // Assuming 'data' is an array of shelter objects
+    
+    // fetch('http://localhost:3001/api/shelterData')
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     // Assuming 'data' is an array of shelter objects
   
-        const shelterCardsContainer = document.getElementById('shelter-cards');
+    //     const shelterCardsContainer = document.getElementById('shelter-cards');
   
-        data.forEach((shelter) => {
-          // Create a div element for each shelter card
-          const card = document.createElement('div');
-          card.classList.add('card'); // Add CSS classes for styling
+    //     data.forEach((shelter) => {
+    //       // Create a div element for each shelter card
+    //       const card = document.createElement('div');
+    //       card.classList.add('card'); // Add CSS classes for styling
   
-          const [lat,long] = shelter.location.split(','); //pulls lat and long
+    //       const [lat,long] = shelter.location.split(','); //pulls lat and long
 
-          card.dataset.lat = lat; //stores lat data
-          card.dataset.long = long; //stores long data
+    //       card.dataset.lat = lat; //stores lat data
+    //       card.dataset.long = long; //stores long data
 
-          // Create the content for the card
-          const cardContent = `
-            <h2>${shelter.name}</h2>
-            <p>Homeless Shelter - ${shelter.address}, ${shelter.city}, ${shelter.state} ${shelter.zip_code}</p>
-            <p>${shelter.phone_number}</p>
-            <div class="socials">
-              <a href="${shelter.official_website}" target="_blank"><img src="/webicon.png" alt="website" width=50px></a>
-              <a href="${shelter.facebook}" target="_blank"><img src="/fbicon.png" alt="facebook" width=40px></a>
-              <a href="${shelter.twitter}" target="_blank"><img src="/twticon.png" alt="twitter" width=40px></a>
-            </div>
-            <div class="sociallink">
-              <p><a href="${shelter.official_website}" target="_blank">Website</a></p>
-              <p><a href="${shelter.facebook}" target="_blank">Facebook</a></p>
-              <p><a href="${shelter.twitter}" target="_blank">Twitter</a></p>
-              </div>
-          `;
+    //       // Create the content for the card
+    //       const cardContent = `
+    //         <h2>${shelter.name}</h2>
+    //         <p>Homeless Shelter - ${shelter.address}, ${shelter.city}, ${shelter.state} ${shelter.zip_code}</p>
+    //         <p>${shelter.phone_number}</p>
+    //         <div class="socials">
+    //           <a href="${shelter.official_website}" target="_blank"><img src="/webicon.png" alt="website" width=50px></a>
+    //           <a href="${shelter.facebook}" target="_blank"><img src="/fbicon.png" alt="facebook" width=40px></a>
+    //           <a href="${shelter.twitter}" target="_blank"><img src="/twticon.png" alt="twitter" width=40px></a>
+    //         </div>
+    //         <div class="sociallink">
+    //           <p><a href="${shelter.official_website}" target="_blank">Website</a></p>
+    //           <p><a href="${shelter.facebook}" target="_blank">Facebook</a></p>
+    //           <p><a href="${shelter.twitter}" target="_blank">Twitter</a></p>
+    //           </div>
+    //       `;
   
-          // Set the card's innerHTML to the content
-          card.innerHTML = cardContent;
+    //       // Set the card's innerHTML to the content
+    //       card.innerHTML = cardContent;
   
-          // Append the card to the container
-          shelterCardsContainer.appendChild(card);
+    //       // Append the card to the container
+    //       shelterCardsContainer.appendChild(card);
 
-          card.addEventListener('click', () => {
-            const lat = parseFloat(card.dataset.lat);
-            const long = parseFloat(card.dataset.long);
+    //       card.addEventListener('click', () => {
+    //         const lat = parseFloat(card.dataset.lat);
+    //         const long = parseFloat(card.dataset.long);
 
-            card.classList.toggle('selected'); //color change?
+    //         card.classList.toggle('selected'); //color change?
 
-            if(card.classList.contains('selected')){
-              const marker = new google.maps.Marker({
-                position: {lat: lat, lng: long},
-                map: map,
-                title: shelter.name
-              });
-              shelterMarkers.push(marker);
-            }else{
-              const markerIndex = shelterMarkers.findIndex(
-                (marker) =>
-                marker.getPosition().lat() === lat && marker.getPosition().lng() === long
-              ); 
-              if(markerIndex !== -1) {
-                shelterMarkers[markerIndex].setMap(null); //testing
-                shelterMarkers.splice(markerIndex,1); //testing
-              }
-            }
-          });
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-    });
-
-  //   function makeDelayedHospitalRequest() {
-  //     const apiUrl = 'http://localhost:3001/api/hospitalData';
-  
-  //     setTimeout(() => {
-  //         fetch(apiUrl)
-  //             .then(response => response.json())
-  //             .then(data => {
-  //                 console.log("hospital data:", data); //test
-  //                 if (Array.isArray(data)) {
-  //                     if (!data.some(item => item.location)) {
-  //                         return; // no location info, skip distance filter
-  //                     }
-  
-  //                     // Assuming 'data' is an array of shelter objects
-  //                     const hospitalCardsContainer = document.getElementById('hospital-cards');
-  
-  //                     data.forEach(hospital => {
-  //                         // Create a div element for each shelter card
-  //                         const card = document.createElement('div');
-  //                         card.classList.add('card'); // Add CSS classes for styling
-  
-  //                         // Create the content for the card
-  //                         const cardContent = `
-  //                           <h2>${hospital["Hospital Name"]}</h2>
-  //                           <p>Address: ${hospital["Street Address"]}, ${hospital.city}, ${hospital.state} ${hospital.zip_code}</p>
-  //                           <p>Phone: ${hospital.phone}</p>
-  //                           <p>Website: <a href="${hospital.Url}" target="_blank">${hospital.Url}</a></p>
-  //                           <!-- add socials and email with icons -->
-  //                         `;
-  
-  //                         // Set the card's innerHTML to the content
-  //                         card.innerHTML = cardContent;
-  
-  //                         // Append the card to the container
-  //                         hospitalCardsContainer.appendChild(card);
-  //                     });
-  //                 } else {
-  //                     console.error("invalid data structure for hospitals:", data);
-  //                 }
-  //             })
-  //             .catch(error => {
-  //                 console.error(error);
-  //             });
-  //     }, 10000); // 5 second delay
-  // }
-  // // Call the function to make the delayed hospital API request
-  // makeDelayedHospitalRequest();
+    //         if(card.classList.contains('selected')){
+    //           const marker = new google.maps.Marker({
+    //             position: {lat: lat, lng: long},
+    //             map: map,
+    //             title: shelter.name
+    //           });
+    //           shelterMarkers.push(marker);
+    //           console.log('markers being pushed', shelterMarkers); //test successful
+    //         }else{
+    //           const markerIndex = shelterMarkers.findIndex(
+    //             (marker) =>
+    //             marker.getPosition().lat() === lat && marker.getPosition().lng() === long
+    //           ); 
+    //           if(markerIndex !== -1) {
+    //             shelterMarkers[markerIndex].setMap(null); //testing
+    //             shelterMarkers.splice(markerIndex,1); //testing
+    //           }
+    //         }
+    //       });
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    // });
     fetch('http://localhost:3001/db/medical')
       .then((response) => response.json())
       .then((data) => {
@@ -374,46 +328,98 @@ document.addEventListener('DOMContentLoaded', () => {
       return distance;
     }
 
-    function filterDistance(selectedDistance){
-      shelterMarkers.forEach((marker, index) => {
-        const lat = marker.getPosition().lat();
-        const long = marker.getPosition().lng();
-        const distance = calculateDistance(userLoc.lat, userLoc.long, lat, long);
-        console.log(distance); //test
-        if(distance <= selectedDistance){
-          shelterCardsContainer.children[index].style.display = 'block';
-        }else{
-          shelterCardsContainer.children[index].style.display = 'none';
+    function filterDistance(selectedDistance) {
+      const allCardsContainers = document.querySelectorAll('#shelter-cards, #hospital-cards, #food-cards, #volunteer-cards');
+      console.log("we're in the fxn");
+      allCardsContainers.forEach((cardsContainer) => {
+        const cards = Array.from(cardsContainer.querySelectorAll('.card'));
+        console.log("we're in the loop");
+
+        // Sort cards based on distance
+        if (selectedDistance !== "all") {
+          cards.sort((cardA, cardB) => {
+            console.log("we're in the sort");
+            const latA = parseFloat(cardA.dataset.lat);
+            const longA = parseFloat(cardA.dataset.long);
+            const distanceA = calculateDistance(userLoc.lat, userLoc.long, latA, longA);
+    
+            const latB = parseFloat(cardB.dataset.lat);
+            const longB = parseFloat(cardB.dataset.long);
+            const distanceB = calculateDistance(userLoc.lat, userLoc.long, latB, longB);
+    
+            return distanceA - distanceB; // Sort in ascending order
+          });
+
+          
+          cards.forEach((card) => {
+            cardsContainer.appendChild(card);
+          });
         }
-      });
-      foodMarkers.forEach((marker, index) => {
-        const lat = marker.getPosition().lat();
-        const long = marker.getPosition().lng();
-        const distance = calculateDistance(userLoc.lat, userLoc.long, lat, long);
-  
-        if(distance <= selectedDistance){
-          foodCardsContainer.children[index].style.display = 'block';
-        }else{
-          foodCardsContainer.children[index].style.display = 'none';
+
+        // cards.sort((cardA, cardB) => {
+        //   console.log("we're in the sort");
+        //   const latA = parseFloat(cardA.dataset.lat);
+        //   const longA = parseFloat(cardA.dataset.long);
+        //   const distanceA = calculateDistance(userLoc.lat, userLoc.long, latA, longA);
+    
+        //   const latB = parseFloat(cardB.dataset.lat);
+        //   const longB = parseFloat(cardB.dataset.long);
+        //   const distanceB = calculateDistance(userLoc.lat, userLoc.long, latB, longB);
+    
+        //   return distanceA - distanceB; // Sort in ascending order
+        // });
+    
+        // // Append the sorted cards back to the container
+        // cards.forEach((card) => {
+        //   cardsContainer.appendChild(card);
+        // });
+
+
+        // Show all cards
+        // cards.forEach((card) => {
+        //   card.style.display = 'block';
+        // });
+
+        if (selectedDistance !== "all") {
+          cards.forEach((card) => {
+            const lat = parseFloat(card.dataset.lat);
+            const long = parseFloat(card.dataset.long);
+            const distance = calculateDistance(userLoc.lat, userLoc.long, lat, long);
+    
+            if (distance <= parseInt(selectedDistance)) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
         }
+
+        cards.forEach((card) => {
+          const lat = parseFloat(card.dataset.lat);
+          const long = parseFloat(card.dataset.long);
+          const distance = calculateDistance(userLoc.lat, userLoc.long, lat, long);
+    
+          if (distance <= selectedDistance) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
       });
-      volunteerMarkers.forEach((marker, index) => {
-        const lat = marker.getPosition().lat();
-        const long = marker.getPosition().lng();
-        const distance = calculateDistance(userLoc.lat, userLoc.long, lat, long);
-  
-        if(distance <= selectedDistance){
-          volunteerCardsContainer.children[index].style.display = 'block';
-        }else{
-          volunteerCardsContainer.children[index].style.display = 'none';
-        }
-      });
+      return "Filter applied successfully";
     }
   
     const distanceSelectElement = document.getElementById('distance');
-  
+    const typeSelectElement = document.getElementById('type');
+
     distanceSelectElement.addEventListener('change', () => {
-      const selectedDistance = parseInt(distanceSelectElement.value);
-      filterDistance(selectedDistance);
+      console.log("distance dropdown changed");
+      filterDistance(distanceSelectElement.value);
+    });
+    typeSelectElement.addEventListener('change', () => {
+      console.log("type dropdown changed");
+      distanceSelectElement.value = 'all'; //Reset distance dropdown to "All"
+      filterDistance(distanceSelectElement.value); //Apply filter
+      console.log("DOES THIS WORK", filterDistance(distanceSelectElement.value));
     });
   });

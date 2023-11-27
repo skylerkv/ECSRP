@@ -52,6 +52,7 @@ body{
     margin-top: -1vh;
     overflow-y: auto;
     background-color: #1d201f;
+    display: block;
 }
 
 #map{
