@@ -49,21 +49,58 @@ img {
     text-align: center;
 }
 
+@media screen and (max-width: 1000px) {
+    .sociallink p {
+        margin-right: 25px;
+    }
+    img{
+        width: 40px;
+        margin-right: 25px;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .card {
         padding: 8px;
         margin: 8px;
+        height: 100%;
     }
 
     .card h2 {
+        font-size: 40px;
+    }
+
+    .card p{
         font-size: large;
     }
 
     .sociallink p {
-        margin-right: 20px;
+        margin-right: 200px;
         margin-left: 10px;
     }
-    #fb,#twt{
-        width: 20px;
+    img{
+        width: 40px;
+        margin-right: 200px;
+    }
+}
+
+@media screen and (max-width: 714px) {
+    .sociallink p {
+        margin-right: 100px;
+        margin-left: 5px;
+    }
+    img{
+        width: 40px;
+        margin-right: 100px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .sociallink p {
+        margin-right: 50px;
+    }
+    img{
+        width: 40px;
+        margin-right: 50px;
     }
 }

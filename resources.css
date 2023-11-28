@@ -47,3 +47,26 @@ body{
     float: right;
     margin-top: -99vh;
 }
+
+@media screen and (max-width: 768px) {
+    .filters{
+        grid-area: filter;
+        width: 100%;
+    }
+    body{
+        grid-template-areas: "filter"
+                            "card"
+                            "map";
+    }
+    #cards{
+        grid-area: card;
+        width: 100%;
+        margin-top: 0;
+    }
+
+    #map{
+        grid-area: map;
+        width: 100%;
+        margin-top: 1px;
+    }
+}
