@@ -48,3 +48,22 @@ img {
     text-decoration: none;
     text-align: center;
 }
+
+@media screen and (max-width: 768px) {
+    .card {
+        padding: 8px;
+        margin: 8px;
+    }
+
+    .card h2 {
+        font-size: large;
+    }
+
+    .sociallink p {
+        margin-right: 20px;
+        margin-left: 10px;
+    }
+    #fb,#twt{
+        width: 20px;
+    }
+}

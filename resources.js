@@ -114,8 +114,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>${medical.m_phone}</p>
             <div class="socials">
               <a href="${medical.m_url}" target="_blank"><img src="/webicon.png" alt="website" width=50px></a>
-              <a href="${medical.m_facebook}" target="_blank"><img src="/fbicon.png" alt="facebook" width=40px></a>
-              <a href="${medical.m_twitter}" target="_blank"><img src="/twticon.png" alt="twitter" width=40px></a>
+              <a href="${medical.m_facebook}" id="fb" target="_blank"><img src="/fbicon.png" alt="facebook" width=40px></a>
+              <a href="${medical.m_twitter}" id="twt" target="_blank"><img src="/twticon.png" alt="twitter" width=40px></a>
             </div>
             <div class="sociallink">
               <p><a href="${medical.m_url}" target="_blank">Website</a></p>
@@ -175,8 +175,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>${food.fb_phone}</p>
             <div class="socials">
               <a href="${food.fb_url}" target="_blank"><img src="/webicon.png" alt="website" width=50px></a>
-              <a href="${food.fb_facebook}" target="_blank"><img src="/fbicon.png" alt="facebook" width=40px></a>
-              <a href="${food.fb_twitter}" target="_blank"><img src="/twticon.png" alt="twitter" width=40px></a>
+              <a href="${food.fb_facebook}" id="fb" target="_blank"><img src="/fbicon.png" alt="facebook" width=40px></a>
+              <a href="${food.fb_twitter}" id="twt" target="_blank"><img src="/twticon.png" alt="twitter" width=40px></a>
             </div>
             <div class="sociallink">
               <p><a href="${food.fb_url}" target="_blank">Website</a></p>
@@ -244,8 +244,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>${volunteer.v_phone}</p>
             <div class="socials">
               <a href="${volunteer.v_url}" target="_blank"><img src="/webicon.png" alt="website" width=50px></a>
-              <a href="${volunteer.v_facebook}" target="_blank"><img src="/fbicon.png" alt="facebook" width=40px></a>
-              <a href="${volunteer.v_twitter}" target="_blank"><img src="/twticon.png" alt="twitter" width=40px></a>
+              <a href="${volunteer.v_facebook}" id="fb" target="_blank"><img src="/fbicon.png" alt="facebook" width=40px></a>
+              <a href="${volunteer.v_twitter}" id="twt" target="_blank"><img src="/twticon.png" alt="twitter" width=40px></a>
             </div>
             <div class="sociallink">
               <p><a href="${volunteer.v_url}" target="_blank">Website</a></p>
