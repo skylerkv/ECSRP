@@ -114,8 +114,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>${medical.m_phone}</p>
             <div class="socials">
               <a href="${medical.m_url}" target="_blank"><img src="/webicon.png" alt="website" width=50px></a>
-              <a href="${medical.m_facebook}" target="_blank"><img src="/fbicon.png" alt="facebook" width=40px></a>
-              <a href="${medical.m_twitter}" target="_blank"><img src="/twticon.png" alt="twitter" width=40px></a>
+              <a href="${medical.m_facebook}" id="fb" target="_blank"><img src="/fbicon.png" alt="facebook" width=40px></a>
+              <a href="${medical.m_twitter}" id="twt" target="_blank"><img src="/twticon.png" alt="twitter" width=40px></a>
             </div>
             <div class="sociallink">
               <p><a href="${medical.m_url}" target="_blank">Website</a></p>
@@ -175,8 +175,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>${food.fb_phone}</p>
             <div class="socials">
               <a href="${food.fb_url}" target="_blank"><img src="/webicon.png" alt="website" width=50px></a>
-              <a href="${food.fb_facebook}" target="_blank"><img src="/fbicon.png" alt="facebook" width=40px></a>
-              <a href="${food.fb_twitter}" target="_blank"><img src="/twticon.png" alt="twitter" width=40px></a>
+              <a href="${food.fb_facebook}" id="fb" target="_blank"><img src="/fbicon.png" alt="facebook" width=40px></a>
+              <a href="${food.fb_twitter}" id="twt" target="_blank"><img src="/twticon.png" alt="twitter" width=40px></a>
             </div>
             <div class="sociallink">
               <p><a href="${food.fb_url}" target="_blank">Website</a></p>
@@ -244,8 +244,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>${volunteer.v_phone}</p>
             <div class="socials">
               <a href="${volunteer.v_url}" target="_blank"><img src="/webicon.png" alt="website" width=50px></a>
-              <a href="${volunteer.v_facebook}" target="_blank"><img src="/fbicon.png" alt="facebook" width=40px></a>
-              <a href="${volunteer.v_twitter}" target="_blank"><img src="/twticon.png" alt="twitter" width=40px></a>
+              <a href="${volunteer.v_facebook}" id="fb" target="_blank"><img src="/fbicon.png" alt="facebook" width=40px></a>
+              <a href="${volunteer.v_twitter}" id="twt" target="_blank"><img src="/twticon.png" alt="twitter" width=40px></a>
             </div>
             <div class="sociallink">
               <p><a href="${volunteer.v_url}" target="_blank">Website</a></p>
@@ -328,17 +328,54 @@ document.addEventListener('DOMContentLoaded', () => {
       return distance;
     }
 
+
+    function filterDistance(selectedDistance) {
+      const allCardsContainers = document.querySelectorAll('#shelter-cards, #hospital-cards, #food-cards, #volunteer-cards');
+    
+      allCardsContainers.forEach((cardsContainer) => {
+        const cards = Array.from(cardsContainer.querySelectorAll('.card'));
+    
+        // Get all cards initially
+        cards.forEach((card) => {
+          card.style.display = 'block';
+        });
+    
+        // Filter cards based on distance if selectedDistance is not 'all'
+        if (selectedDistance !== 'all') {
+          const filteredCards = cards.filter((card) => {
+            const lat = parseFloat(card.dataset.lat);
+            const long = parseFloat(card.dataset.long);
+            const distance = calculateDistance(userLoc.lat, userLoc.long, lat, long);
+    
+            return distance <= parseInt(selectedDistance);
+          });
+    
+          // Hide cards that are not in the filtered list
+          cards.forEach((card) => {
+            if (!filteredCards.includes(card)) {
+              card.style.display = 'none';
+            }
+          });
+        }
+      });
+    
+      return 'Filter applied successfully';
+    }
+    
     function filterDistance(selectedDistance) {
       const allCardsContainers = document.querySelectorAll('#shelter-cards, #hospital-cards, #food-cards, #volunteer-cards');
       console.log("we're in the fxn");
+    
       allCardsContainers.forEach((cardsContainer) => {
+        const existingCardIds = new Set();
         const cards = Array.from(cardsContainer.querySelectorAll('.card'));
-        console.log("we're in the loop");
-
-        // Sort cards based on distance
-        if (selectedDistance !== "all") {
-          cards.sort((cardA, cardB) => {
-            console.log("we're in the sort");
+        console.log(`Before filtering - Container: ${cardsContainer.id}, Number of cards: ${cards.length}`);
+    
+        // Clear the container
+        cardsContainer.innerHTML = '';
+    
+        // Sort and filter cards based on distance
+        cards.sort((cardA, cardB) => {
             const latA = parseFloat(cardA.dataset.lat);
             const longA = parseFloat(cardA.dataset.long);
             const distanceA = calculateDistance(userLoc.lat, userLoc.long, latA, longA);
@@ -348,67 +385,81 @@ document.addEventListener('DOMContentLoaded', () => {
             const distanceB = calculateDistance(userLoc.lat, userLoc.long, latB, longB);
     
             return distanceA - distanceB; // Sort in ascending order
-          });
-
-          
-          cards.forEach((card) => {
-            cardsContainer.appendChild(card);
-          });
-        }
-
-        // cards.sort((cardA, cardB) => {
-        //   console.log("we're in the sort");
-        //   const latA = parseFloat(cardA.dataset.lat);
-        //   const longA = parseFloat(cardA.dataset.long);
-        //   const distanceA = calculateDistance(userLoc.lat, userLoc.long, latA, longA);
-    
-        //   const latB = parseFloat(cardB.dataset.lat);
-        //   const longB = parseFloat(cardB.dataset.long);
-        //   const distanceB = calculateDistance(userLoc.lat, userLoc.long, latB, longB);
-    
-        //   return distanceA - distanceB; // Sort in ascending order
-        // });
-    
-        // // Append the sorted cards back to the container
-        // cards.forEach((card) => {
-        //   cardsContainer.appendChild(card);
-        // });
-
-
-        // Show all cards
-        // cards.forEach((card) => {
-        //   card.style.display = 'block';
-        // });
-
-        if (selectedDistance !== "all") {
-          cards.forEach((card) => {
+          })
+          .forEach((card) => {
             const lat = parseFloat(card.dataset.lat);
             const long = parseFloat(card.dataset.long);
             const distance = calculateDistance(userLoc.lat, userLoc.long, lat, long);
     
-            if (distance <= parseInt(selectedDistance)) {
-              card.style.display = 'block';
-            } else {
-              card.style.display = 'none';
+            if (distance <= parseInt(selectedDistance) || selectedDistance === "all") {
+              const cardId = `${lat}-${long}`;
+              if (!existingCardIds.has(cardId)) {
+                cardsContainer.appendChild(card);
+                existingCardIds.add(cardId);
+              }
             }
           });
-        }
-
-        cards.forEach((card) => {
-          const lat = parseFloat(card.dataset.lat);
-          const long = parseFloat(card.dataset.long);
-          const distance = calculateDistance(userLoc.lat, userLoc.long, lat, long);
     
-          if (distance <= selectedDistance) {
-            card.style.display = 'block';
-          } else {
-            card.style.display = 'none';
-          }
+        // Show all cards
+        cards.forEach((card) => {
+          card.style.display = 'none';
         });
+    
+        console.log(`After filtering - Container: ${cardsContainer.id}, Number of cards: ${cardsContainer.querySelectorAll('.card').length}`);
       });
+    
       return "Filter applied successfully";
     }
-  
+    
+    function filterDistance(selectedDistance) {
+      const allCardsContainers = document.querySelectorAll('#shelter-cards, #hospital-cards, #food-cards, #volunteer-cards');
+      console.log("we're in the fxn");
+    
+      allCardsContainers.forEach((cardsContainer) => {
+        const existingCardIds = new Set();
+        const cards = Array.from(cardsContainer.querySelectorAll('.card'));
+        console.log(`Before filtering - Container: ${cardsContainer.id}, Number of cards: ${cards.length}`);
+    
+        // Clear the container
+        //cardsContainer.innerHTML = '';
+    
+        // Sort and filter cards based on distance
+        cards.sort((cardA, cardB) => {
+            const latA = parseFloat(cardA.dataset.lat);
+            const longA = parseFloat(cardA.dataset.long);
+            const distanceA = calculateDistance(userLoc.lat, userLoc.long, latA, longA);
+    
+            const latB = parseFloat(cardB.dataset.lat);
+            const longB = parseFloat(cardB.dataset.long);
+            const distanceB = calculateDistance(userLoc.lat, userLoc.long, latB, longB);
+    
+            return distanceA - distanceB; // Sort in ascending order
+          })
+          .forEach((card) => {
+            const lat = parseFloat(card.dataset.lat);
+            const long = parseFloat(card.dataset.long);
+            const distance = calculateDistance(userLoc.lat, userLoc.long, lat, long);
+    
+            if (distance <= parseInt(selectedDistance) || selectedDistance === "all") {
+              const cardId = `${lat}-${long}`;
+              if (!existingCardIds.has(cardId)) {
+                cardsContainer.appendChild(card);
+                existingCardIds.add(cardId);
+              }
+            }
+          });
+    
+        // Show all cards
+        cards.forEach((card) => {
+          card.style.display = 'block';
+        });
+    
+        console.log(`After filtering - Container: ${cardsContainer.id}, Number of cards: ${cardsContainer.querySelectorAll('.card').length}`);
+      });
+    
+      return "Filter applied successfully";
+    }
+    
     const distanceSelectElement = document.getElementById('distance');
     const typeSelectElement = document.getElementById('type');
 
