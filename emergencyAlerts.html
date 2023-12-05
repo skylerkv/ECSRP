@@ -5,26 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emergency Alerts</title>
-    <link rel="stylesheet" href="css/navBar.css">
-    <link rel="stylesheet" href="css/emergencyAlerts.css">
+    <link rel="stylesheet" type="text/css" href="css/emergencyAlerts.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
     <script src="server.js"></script> 
+    <script src="main.js"></script>
 
 </head>
 <body>
   <div class = "websitename">
     <h1>Eau Claire Student Resilience Platform</h1>
   </div>
-    <nav>
-        <ul class="nav-ul">
-            <li class="nav-li"><a href="homepage.html">Home</a></li>
-            <li class="nav-li"><a href="dist/emergencyAlerts.html">Alerts</a></li>
-            <li class="nav-li"><a href="volunteer.html">Volunteer</a></li>
-            <li class="nav-li"><a href="resources.html">Resources</a></li>
-            <li class="nav-li"><a href="Forum/index.html">Forums</a></li>
-            <li class="nav-li"><a href="plansscheck.html">Lists</a></li>
-            <li class="nav-li"><a href="healthmonitor.html">Health</a></li>
-        </ul>
-    </nav>
+  <nav>
+    <input type="checkbox" class="toggle-menu">
+    <div class="hamburger"></div>
+    <ul class="nav-ul">
+        <li class="nav-li"><a href="homepage.html">Home</a></li>
+        <li class="nav-li"><a href="emergencyAlerts.html">Alerts</a></li>
+        <li class="nav-li"><a href="volunteer.html">Volunteer</a></li>
+        <li class="nav-li"><a href="resources.html">Resources</a></li>
+        <li class="nav-li"><a href="./Forum/index.html">Forums</a></li>
+        <li class="nav-li"><a href="planscheck.html">Lists</a></li>
+        <li class="nav-li"><a href="healthmonitor.html">Health</a></li>
+    </ul>
+</nav>
 
     <!--Current alerts-->
     <div class="alertBox"><button id="weatherAlerts" type='button'>Current Alerts</button>
