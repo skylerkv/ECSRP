@@ -1,0 +1,72 @@
+body{
+    grid-template-areas: "filter filter fitler"
+                        " card map map";
+    height: 100vh;
+    color: white;
+    background-color: #1d201f;
+}
+
+.filters{
+    grid-area: filter;
+    background-color: #1d201f;
+    height: 20vh;
+    width: 100vw;
+    margin-top: -3vh;
+    padding-left: 5vw;
+}
+
+#type, #distance{
+    border: 1px solid #78c0e0;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+    font-size: medium;
+    background-color: #1d201f;
+    color: white;
+}
+
+.formControl{
+    margin-top: 3vh;
+    padding-top: 3vh;
+}
+
+#cards{
+    grid-area: card;
+    height: 100vh;
+    width: 30%;
+    margin-top: -1vh;
+    overflow-y: auto;
+    background-color: #1d201f;
+    display: block;
+}
+
+#map{
+    grid-area: map;
+    height: 100vh;
+    width: 70%;
+    float: right;
+    margin-top: -99vh;
+}
+
+@media screen and (max-width: 768px) {
+    .filters{
+        grid-area: filter;
+        width: 100%;
+    }
+    body{
+        grid-template-areas: "filter"
+                            "card"
+                            "map";
+    }
+    #cards{
+        grid-area: card;
+        width: 100%;
+        margin-top: 0;
+    }
+
+    #map{
+        grid-area: map;
+        width: 100%;
+        margin-top: 1px;
+    }
+}
