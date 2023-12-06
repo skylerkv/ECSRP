@@ -6,11 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="resources.css">
-    <link rel="stylesheet" type="text/css" href="home.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
     <link rel="stylesheet" type="text/css" href="card.css">
 </head>
 <body>
+    <div class = "websitename">
+        <h1>Eau Claire Student Resilience Platform</h1>
+    </div>
     <nav>
+        <input type="checkbox" class="toggle-menu">
+        <div class="hamburger"></div>
         <ul class="nav-ul">
             <li class="nav-li"><a href="login.html">Login</a></li>
             <li class="nav-li"><a href="homepage.html">Home</a></li>
@@ -30,42 +35,39 @@
                 <label for="type">Type:</label>
                 <select id="type" name="type">
                     <option disabled selected="Select">Select an option</option>
+                    <option value="All">All</option>
                     <option value="Shelters">Shelters</option>
                     <option value="FoodBanks">Food Banks</option>
                     <option value="MedicalFacilities">Medical Facilities</option>
-                    <option value="VolunteerGroups">Volunteer Groups</option>
+                    <option value="Orgs">Non-Profit Organizations</option>
                 </select>
+                <script src="resources.js"></script>
             </div>
             <div class="formControl">
                 <label for="type">Distance:</label>
                 <select id="distance" name="distance">
-                    <option disabled selected="Select">Select an option</option>
-                    <option value="5mi">5 miles</option>
-                    <option value="10mi">10 miles</option>
-                    <option value="15mi">15 miles</option>
-                    <option value="20plusmi">20+ miles</option>
+                    <option value=0 disabled selected="Select">Select an option</option>
+                    <option value="all" selected="selected">All</option>
+                    <option value=5>5 miles</option>
+                    <option value=10>10 miles</option>
+                    <option value=15>15 miles</option>
+                    <option value=20>20+ miles</option>
                 </select>
             </div>
-            <button class="searchButton">Search</button>
         </div>
         <div id="cards">
-
-            <!-- <p>cards here</p>
-            <script src="resources.js"></script> -->
-            <div id="shelter-cards"> shelter</div>
-            <div id="hospital-cards">hospital</div>
+            <div id="shelter-cards"></div>
+            <div id="hospital-cards"></div>
+            <div id="food-cards"></div>
+            <div id="volunteer-cards"></div>
             <script src="resources.js"></script>
-
-            <p>cards here</p>
-            <!-- <script src="resources.js"></script> -->
-
         </div>
-
         <div id="map"></div>
         <script>
+            let map; //make it global to be accessed in resources.js
             function initMap() {
                 var location = {lat: 44.8113, lng: -91.4985};
-                var map = new google.maps.Map(document.getElementById("map"), {
+                map = new google.maps.Map(document.getElementById("map"), {
                     zoom: 14,
                     center: location
                 });

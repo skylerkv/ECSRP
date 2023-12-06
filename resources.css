@@ -3,6 +3,7 @@ body{
                         " card map map";
     height: 100vh;
     color: white;
+    background-color: #1d201f;
 }
 
 .filters{
@@ -31,23 +32,41 @@ body{
 
 #cards{
     grid-area: card;
-    height: 80vh;
-    width: 30vw;
-    margin-top: -2vh;
+    height: 100vh;
+    width: 30%;
+    margin-top: -1vh;
+    overflow-y: auto;
+    background-color: #1d201f;
+    display: block;
 }
-
-/* .cards-container{
-    grid-area: card;
-    background-color: blue;
-    height: 80vh;
-    width: 30vw;
-    margin-top: -2vh;
-} */
 
 #map{
     grid-area: map;
-    height: 80vh;
-    width: 70vw;
+    height: 100vh;
+    width: 70%;
     float: right;
-    margin-top: -80vh;
+    margin-top: -99vh;
+}
+
+@media screen and (max-width: 768px) {
+    .filters{
+        grid-area: filter;
+        width: 100%;
+    }
+    body{
+        grid-template-areas: "filter"
+                            "card"
+                            "map";
+    }
+    #cards{
+        grid-area: card;
+        width: 100%;
+        margin-top: 0;
+    }
+
+    #map{
+        grid-area: map;
+        width: 100%;
+        margin-top: 1px;
+    }
 }
