@@ -46,6 +46,125 @@ nav {
     background-color: #1D201F;
 }
 
+.pagename{
+    font-size: 200%;
+    padding: 20px;
+    text-align: center;
+}
+
+.info{
+    text-align: center;
+}
+
+.create{
+    list-style-type: none;
+    margin-left: 0%;
+}
+
+.listcontainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.plans{
+    margin-left: 5vw;
+}
+
+
+.infohealth{
+    margin-left: 5vw;
+}
+
+#list-creation .creator-name{
+    padding-top: 40px;
+    padding-bottom: 4   0px;
+    text-align: center;
+    color: #1D201F;
+    font-family: 'Montserrat', sans-serif;
+  
+}
+
+#list-creation .section{
+    padding: 5%;
+    padding-top: 0;
+    height: 100vh;
+  
+}
+  
+#list-creation .side{
+    margin-left: 0;
+}
+
+#list-creation .button{
+    margin: 10px;
+    border-color:  #957dad !important;
+    color: #888888 !important;
+    margin-bottom: 25px;
+}
+
+#list-creation .button:hover{
+    background-color: #fec8d8 !important;
+}
+
+#list-creation .textarea{
+    padding: 3%;
+    border-color: #957dad;
+    border-width: thick;
+}
+
+#list-creation .flex-box{
+    display:flex;
+    justify-content:center;
+=======
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+.websitename {
+    background-color: #1D201F;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+}
+
+.websitename h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+nav {
+    background-color: #78C0E0;
+    color: #ffffff;
+}
+
+.nav-ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-li {
+    margin: 0;
+    padding: 0;
+}
+
+.nav-li a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.nav-li a:hover {
+    background-color: #1D201F;
+}
+
 .hamburger{
     position: relative;
     width: 30px;
@@ -162,4 +281,3 @@ nav input:checked ~ .nav-ul{
     .nav-li{
         padding: 10px;
     }
-}
