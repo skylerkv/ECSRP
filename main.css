@@ -71,9 +71,49 @@ nav {
     margin-left: 5vw;
 }
 
-.checklist{
-}
 
 .infohealth{
     margin-left: 5vw;
+}
+
+#list-creation .creator-name{
+    padding-top: 40px;
+    padding-bottom: 4   0px;
+    text-align: center;
+    color: #1D201F;
+    font-family: 'Montserrat', sans-serif;
+  
+}
+
+#list-creation .section{
+    padding: 5%;
+    padding-top: 0;
+    height: 100vh;
+  
+}
+  
+#list-creation .side{
+    margin-left: 0;
+}
+
+#list-creation .button{
+    margin: 10px;
+    border-color:  #957dad !important;
+    color: #888888 !important;
+    margin-bottom: 25px;
+}
+
+#list-creation .button:hover{
+    background-color: #fec8d8 !important;
+}
+
+#list-creation .textarea{
+    padding: 3%;
+    border-color: #957dad;
+    border-width: thick;
+}
+
+#list-creation .flex-box{
+    display:flex;
+    justify-content:center;
 }
