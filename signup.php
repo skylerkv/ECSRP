@@ -21,7 +21,7 @@
             <div class="form-group">
                 <button type="submit">Sign Up</button>
             </div>
-            <h3>Already have an account?</h3> <a href = "login.html"> Sign up</a href>
+            <h3>Already have an account?</h3> <a href = "login.html">Log in</a href>
         </form>
     </div>
 </body>
