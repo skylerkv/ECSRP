@@ -116,7 +116,7 @@ nav {
 #list-creation .flex-box{
     display:flex;
     justify-content:center;
-=======
+}
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -281,3 +281,4 @@ nav input:checked ~ .nav-ul{
     .nav-li{
         padding: 10px;
     }
+}
