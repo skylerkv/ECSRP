@@ -1,3 +1,9 @@
+<?php
+  session_start();
+  if(isset($_SESSION["id"])){
+    echo '<meta HTTP-EQUIV="REFRESH" content="0; url=homepage.html">';
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +15,7 @@
 <body>
     <div class="login-container">
         <h1>Sign Up</h1>
-        <form action="login.php" method="POST">
+        <form action="sql_connection.php" method="POST">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
@@ -21,7 +27,7 @@
             <div class="form-group">
                 <button type="submit">Sign Up</button>
             </div>
-            <h3>Already have an account?</h3> <a href = "login.html">Log in</a href>
+            <h3>Already have an account?</h3> <a href = "login.php">Log in</a href>
         </form>
     </div>
 </body>

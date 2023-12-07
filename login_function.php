@@ -2,27 +2,31 @@
 require_once('sql_conn.php');
 session_start();
 
-// user input 'uname' assinged to $uname
-$email = $_POST["email"];
+$email = $_POST["username"];
 $password = $_POST["password"];
 
 // Check the user input data 
-if ($email == ''){
+if ($email == ''|| $password == ''){
     // incomplete input data
     echo "Error: Some input fields do not have data.";
     exit;
 }
 
 // checking user existence in database
-$findUser =  "SELECT * FROM userData WHERE email = '$email' AND password = '$password'";
-$exist = @mysqli_query($dbc, $findUser);
+$findUser =  "SELECT * FROM cs485group1.users WHERE email = ? AND password = ?";
+$stmt = mysqli_prepare($dbc, $findUser);
+mysqli_stmt_bind_param($stmt, "ss", $email, $password);
+mysqli_stmt_execute($stmt);
+
+// Get the result
+$result = mysqli_stmt_get_result($stmt);
 
 // if 'email' and 'password' does exist in database
-if ($exist) {
-    $row = mysqli_fetch_assoc($exist);
+if ($row = mysqli_fetch_assoc($result)) {
     $userID = $row["userID"];
     $email = $row["email"];
-    $_SESSION['useID'] = $userID;
+    $adminPrivilege = $row["adminPrivilege"];
+    $_SESSION['userID'] = $userID;
     $_SESSION['email'] = $email;
     $_SESSION['adminPrivilege'] = $adminPrivilege;
 
