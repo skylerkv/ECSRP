@@ -25,76 +25,76 @@ document.addEventListener('DOMContentLoaded', () => {
     const foodMarkers = [];
     const medicalMarkers = [];
     
-    // fetch('http://localhost:3001/api/shelterData')
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     // Assuming 'data' is an array of shelter objects
+    fetch('http://localhost:3001/api/shelterData')
+      .then((response) => response.json())
+      .then((data) => {
+        // Assuming 'data' is an array of shelter objects
   
-    //     const shelterCardsContainer = document.getElementById('shelter-cards');
+        const shelterCardsContainer = document.getElementById('shelter-cards');
   
-    //     data.forEach((shelter) => {
-    //       // Create a div element for each shelter card
-    //       const card = document.createElement('div');
-    //       card.classList.add('card'); // Add CSS classes for styling
+        data.forEach((shelter) => {
+          // Create a div element for each shelter card
+          const card = document.createElement('div');
+          card.classList.add('card'); // Add CSS classes for styling
   
-    //       const [lat,long] = shelter.location.split(','); //pulls lat and long
+          const [lat,long] = shelter.location.split(','); //pulls lat and long
 
-    //       card.dataset.lat = lat; //stores lat data
-    //       card.dataset.long = long; //stores long data
+          card.dataset.lat = lat; //stores lat data
+          card.dataset.long = long; //stores long data
 
-    //       // Create the content for the card
-    //       const cardContent = `
-    //         <h2>${shelter.name}</h2>
-    //         <p>Homeless Shelter - ${shelter.address}, ${shelter.city}, ${shelter.state} ${shelter.zip_code}</p>
-    //         <p>${shelter.phone_number}</p>
-    //         <div class="socials">
-    //           <a href="${shelter.official_website}" target="_blank"><img src="/webicon.png" alt="website" width=50px></a>
-    //           <a href="${shelter.facebook}" target="_blank"><img src="/fbicon.png" alt="facebook" width=40px></a>
-    //           <a href="${shelter.twitter}" target="_blank"><img src="/twticon.png" alt="twitter" width=40px></a>
-    //         </div>
-    //         <div class="sociallink">
-    //           <p><a href="${shelter.official_website}" target="_blank">Website</a></p>
-    //           <p><a href="${shelter.facebook}" target="_blank">Facebook</a></p>
-    //           <p><a href="${shelter.twitter}" target="_blank">Twitter</a></p>
-    //           </div>
-    //       `;
+          // Create the content for the card
+          const cardContent = `
+            <h2>${shelter.name}</h2>
+            <p>Homeless Shelter - ${shelter.address}, ${shelter.city}, ${shelter.state} ${shelter.zip_code}</p>
+            <p>${shelter.phone_number}</p>
+            <div class="socials">
+              <a href="${shelter.official_website}" target="_blank"><img src="/webicon.png" alt="website" width=50px></a>
+              <a href="${shelter.facebook}" target="_blank"><img src="/fbicon.png" alt="facebook" width=40px></a>
+              <a href="${shelter.twitter}" target="_blank"><img src="/twticon.png" alt="twitter" width=40px></a>
+            </div>
+            <div class="sociallink">
+              <p><a href="${shelter.official_website}" target="_blank">Website</a></p>
+              <p><a href="${shelter.facebook}" target="_blank">Facebook</a></p>
+              <p><a href="${shelter.twitter}" target="_blank">Twitter</a></p>
+              </div>
+          `;
   
-    //       // Set the card's innerHTML to the content
-    //       card.innerHTML = cardContent;
+          // Set the card's innerHTML to the content
+          card.innerHTML = cardContent;
   
-    //       // Append the card to the container
-    //       shelterCardsContainer.appendChild(card);
+          // Append the card to the container
+          shelterCardsContainer.appendChild(card);
 
-    //       card.addEventListener('click', () => {
-    //         const lat = parseFloat(card.dataset.lat);
-    //         const long = parseFloat(card.dataset.long);
+          card.addEventListener('click', () => {
+            const lat = parseFloat(card.dataset.lat);
+            const long = parseFloat(card.dataset.long);
 
-    //         card.classList.toggle('selected'); //color change?
+            card.classList.toggle('selected'); //color change?
 
-    //         if(card.classList.contains('selected')){
-    //           const marker = new google.maps.Marker({
-    //             position: {lat: lat, lng: long},
-    //             map: map,
-    //             title: shelter.name
-    //           });
-    //           shelterMarkers.push(marker);
-    //           console.log('markers being pushed', shelterMarkers); //test successful
-    //         }else{
-    //           const markerIndex = shelterMarkers.findIndex(
-    //             (marker) =>
-    //             marker.getPosition().lat() === lat && marker.getPosition().lng() === long
-    //           ); 
-    //           if(markerIndex !== -1) {
-    //             shelterMarkers[markerIndex].setMap(null); //testing
-    //             shelterMarkers.splice(markerIndex,1); //testing
-    //           }
-    //         }
-    //       });
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    // });
+            if(card.classList.contains('selected')){
+              const marker = new google.maps.Marker({
+                position: {lat: lat, lng: long},
+                map: map,
+                title: shelter.name
+              });
+              shelterMarkers.push(marker);
+              console.log('markers being pushed', shelterMarkers); //test successful
+            }else{
+              const markerIndex = shelterMarkers.findIndex(
+                (marker) =>
+                marker.getPosition().lat() === lat && marker.getPosition().lng() === long
+              ); 
+              if(markerIndex !== -1) {
+                shelterMarkers[markerIndex].setMap(null); //testing
+                shelterMarkers.splice(markerIndex,1); //testing
+              }
+            }
+          });
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+    });
     fetch('http://localhost:3001/db/medical')
       .then((response) => response.json())
       .then((data) => {
