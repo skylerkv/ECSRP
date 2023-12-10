@@ -7,16 +7,31 @@ if ($_POST["username"] == "" || $_POST["password"] == "") {
     $email = $_POST["username"];
     $password = $_POST["password"];
 
-    $sql = "INSERT INTO cs485group1.users (email, password) VALUES (?, ?)";
-    $stmt = mysqli_prepare($dbc, $sql);
-    mysqli_stmt_bind_param($stmt, "ss", $email, $password);
-    $response = mysqli_stmt_execute($stmt);
+    // Check if the email ends with either 'uwec.edu' or 'cvtc.edu'
+    $allowedDomains = ['uwec.edu', 'cvtc.edu'];
+    $validEmail = false;
 
-    if ($response) {
-        echo "User has been successfully added";
-        echo '<meta HTTP-EQUIV="REFRESH" content="0; url=homepage.html">';
+    foreach ($allowedDomains as $domain) {
+        if (strtolower(substr($email, -strlen($domain))) === strtolower($domain)) {
+            $validEmail = true;
+            break;
+        }
+    }
+
+    if (!$validEmail) {
+        echo "Error: Only users with 'uwec.edu' or 'cvtc.edu' email addresses are allowed to sign up.";
     } else {
-        echo "Error adding user";
+        $sql = "INSERT INTO cs485group1.users (email, password) VALUES (?, ?)";
+        $stmt = mysqli_prepare($dbc, $sql);
+        mysqli_stmt_bind_param($stmt, "ss", $email, $password);
+        $response = mysqli_stmt_execute($stmt);
+
+        if ($response) {
+            echo "User has been successfully added";
+            echo '<meta HTTP-EQUIV="REFRESH" content="0; url=homepage.html">';
+        } else {
+            echo "Error adding user";
+        }
     }
 }
 
