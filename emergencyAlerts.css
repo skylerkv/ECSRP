@@ -8,15 +8,6 @@
     padding: 10px;
     font-family: 'Times New Roman', Times, serif;
 }
-.emailSubmitButton{
-    background-color: #1D201F;
-    color: white;
-    border: none;
-}
-.emailSubmitButton:hover{
-    background-color: white;
-    color: black;
-}
 #weatherAlerts{
     background-color: black;
     color: white;
@@ -25,17 +16,4 @@
 #weatherAlerts:hover{
     background-color: white;
     color: black;
-}
-.optIn{
-    background-color: #78C0E0;
-    color: white;
-    border: 5px solid white;
-    width: 40%;
-    margin: auto;
-    padding: 15px;
-}
-#emailOptIn{
-    text-align: center;
-    border: none;
-    padding: 10px;
 }

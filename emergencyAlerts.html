@@ -7,7 +7,6 @@
     <title>Emergency Alerts</title>
     <link rel="stylesheet" type="text/css" href="emergencyAlerts.css">
     <link rel="stylesheet" type="text/css" href="main.css">
-    <script src="server.js"></script> 
     <script src="main.js"></script>
 
 </head>
@@ -86,52 +85,5 @@
 
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-    <!--Opt in to alerts using .edu email-->
-    <div class="optIn"><h2>Enter your email to get alert notifications: </h2>
-        <form id="emailOptIn">
-            <label for="email">Email Address:</label>
-            <input type="email" id="email" name="email" required>
-            <span id="emailValidationMessage"></span>
-        
-            <button type="submit" class="emailSubmitButton">Get notifications</button>
-          </form>
-    </div>
-    <script>
-        const emailNotifsForm = document.getElementById('emailOptIn');
-        const emailInput = document.getElementById('email');
-        const emailValidationMessage = document.getElementById('emailValidationMessage');
-    
-        emailNotifsForm.addEventListener('submit', function (event) {
-          event.preventDefault(); //Prevent the form from submitting
-    
-          //Check if the email address ends with UWEC or CVTC
-          const enteredEmail = emailInput.value;
-    
-          if (enteredEmail.endsWith(`@uwec.edu`) || enteredEmail.endsWith('@cvtc.edu')) {
-            //Email is valid
-            emailValidationMessage.textContent = 'Email registration successful!';
-
-            //Send the email to the server
-            fetch('/optInNotifications', {
-            method: 'POST',
-            body: JSON.stringify({ email: enteredEmail }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-            })
-            .then(response => response.json())
-            .then(data => {
-            console.log(data);
-         })
-            .catch(error => {
-            console.error('Error sending email to server:', error);
-            });
-        } else {
-        //Email is invalid
-        emailValidationMessage.textContent = 'Invalid email address. It must end with @uwec.edu or @cvtc.edu';
-      }
-    });
-    </script>
-    
 </body>
 </html>
