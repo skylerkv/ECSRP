@@ -15,14 +15,14 @@ function connect_mysql(): PDO
     }
 
     $servername = "wayne.cs.uwec.edu";
-    $username = "YANGZ9363";
-    $password = "6LDWNJ61";
+    $username = "CHADWICJ4418";
+    $password = "CAXTYVKF";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=cs485group1", $username, $password);
         return $conn;
     } catch (PDOException $e) {
-        json_error("Unable to connect to database");
+        json_error("Unable to connect to database123");
         die;
     }
 }
@@ -31,8 +31,8 @@ function connect_mysql(): PDO
 function begin_transaction(): PDO
 {
     $servername = "wayne.cs.uwec.edu";
-    $username = "YANGZ9363";
-    $password = "6LDWNJ61";
+    $username = "CHADWICJ4418";
+    $password = "CAXTYVKF";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=cs485group1", $username, $password);
@@ -41,7 +41,7 @@ function begin_transaction(): PDO
 
         return $conn;
     } catch (PDOException $e) {
-        json_error("Unable to connect to database");
+        json_error("Unable to connect to database12");
         die;
     }
 }

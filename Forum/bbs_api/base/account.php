@@ -3,7 +3,7 @@
 require_once 'base.php';
 
 $password_key = "#7989f";
-
+session_start();
 
 function create_account(string $email, string $password): bool
 {
