@@ -93,25 +93,4 @@ nav {
     color: #ffffff;
     margin-bottom: 40px; /* Add margin-bottom to create a gap between navbar and cards */
 }
-.nav-ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-}
-.nav-li {
-    margin: 0;
-    padding: 0;
-    font-size: 1.5em;
-}
-.nav-li a {
-    display: block;
-    padding: 10px 20px;
-    text-decoration: none;
-    color: #ffffff;
-}
-.nav-li a:hover {
-    background-color: #1D201F;
-}
 
