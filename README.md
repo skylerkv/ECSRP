@@ -6,7 +6,6 @@ Skyler Vang, Alex Scherber, Casey Chadwick, Zhenyu Yang, Soliyana Negash, Parker
 Instructions for how to build and execute project:
 1. In the terminal, do 'cd resources_server' and then 'node server.js' to make sure the data
 for the resources page is properly loaded.
-
 2. To run using XAMPP, store the code in (C:)/xampp/htdocs
 3. Start XAMPP Control Panel and make sure Apache and MySQL are running
 4. In Chrome, type localhost/ECSRP/login.php
